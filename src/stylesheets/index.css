@@ -12,15 +12,10 @@
 }
 
 html, body {
-	width:      100vw;
-	height:     100vh;
-	overflow-x: hidden;
-	overflow-y: hidden;
 }
 
 body {
 	font-family: var(--ff-roboto), sans-serif;
-	overflow-y:  scroll !important;
 	color:       var(--text-primary);
 	background:  var(--background-primary);
 }

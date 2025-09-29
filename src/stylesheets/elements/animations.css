@@ -1,0 +1,84 @@
+img.lazy {
+    visibility: hidden;
+
+    &.visible {
+        animation-duration:  1s;
+        animation-fill-mode: both;
+        animation-name:      fadeIn;
+        visibility:          visible;
+    }
+}
+
+.slideX {
+    will-change: transform, opacity;
+
+    &.visible {
+        animation: slideInX 1s cubic-bezier(.2, .9, .3, 1) forwards;
+    }
+}
+
+.slideY {
+    will-change: transform, opacity;
+
+    &.visible {
+        animation: slideInX 1s cubic-bezier(.2, .9, .3, 1) forwards;
+    }
+}
+
+.split-header {
+    overflow: hidden;
+
+    span {
+        display:     inline-block;
+        transform:   translateY(-120%);
+        will-change: transform;
+    }
+
+    &.visible {
+        span {
+            animation:       slideInY 420ms cubic-bezier(.2, .9, .3, 1) forwards;
+            animation-delay: calc(var(--i) * 0.05s);
+        }
+    }
+}
+
+.moveable-image {
+    display:         flex;
+    transform-style: preserve-3d;
+    will-change:     transform;
+    transform:       perspective(1500px) rotateX(0deg) rotateY(0deg);
+
+    img {
+        transition: transform .6s;
+    }
+
+    &:hover {
+        img {
+            transform: scale(1.02);
+            box-shadow: 0 1px 10px rgba(from var(--text-primary) r g b / 0.2);
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideInY {
+    to {
+        transform: translateY(0);
+        opacity:   1;
+    }
+}
+
+@keyframes slideInX {
+    to {
+        transform: translateX(0);
+        opacity:   1;
+    }
+}

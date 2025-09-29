@@ -1,0 +1,14 @@
+<div class="container">
+
+    @if (imagesLoaded()) {
+        <div class="header">
+            <h1 split-heading [splitText]="'Галлерея'">&nbsp;</h1>
+        </div>
+
+        <div class="gallery-container">
+            <div class="gallery" #gallery></div>
+        </div>
+    } @else {
+
+    }
+</div>

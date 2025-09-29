@@ -1,0 +1,149 @@
+<div class="container">
+    <div class="header">
+        <h1 split-heading [splitText]="'Последние походы'">Последние походы</h1>
+        <p>Учитывая ключевые сценарии поведения, существующая теория не оставляет шанса для направлений прогрессивного
+            развития. Прежде всего, внедрение современных методик, а также свежий взгляд на привычные вещи — безусловно
+            открывает новые горизонты для дальнейших направлений развития.</p>
+    </div>
+
+    <div class="grid grid1">
+        <div (click)="redirectToBlog(1)" style="grid-column: span 3" class="card separate-card">
+            <div class="card-slide-minus slideX" #visible>
+                <div class="moveable-image" moveable-image>
+                    <img src="images/mvp/img2.png" alt="image">
+                </div>
+            </div>
+            <div class="content slideX" #visible>
+                <h1>Системный подход к детскому туризму</h1>
+                <p>Учитывая ключевые сценарии поведения, существующая теория не оставляет шанса для направлений
+                    прогрессивного развития. Прежде всего, внедрение современных методик, а также свежий взгляд на
+                    привычные вещи — безусловно открывает новые горизонты для дальнейших направлений развития. Вот вам
+                    яркий пример современных тенденций — дальнейшее развитие различных форм деятельности не даёт нам
+                    иного выбора, кроме определения стандартных подходов.</p>
+                <a>
+                    Читать далее
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="12"
+                         fill="none" viewBox="0 0 24 12">
+                        <path fill="currentColor"
+                              d="M0 5.113h20.644L17.577 2.04 18.804.804 24 6l-5.196 5.196-1.227-1.235 3.067-3.074H0z"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <div (click)="redirectToBlog(1)" style="grid-column: span 1" class="card small-square-card slideY" #visible>
+            <div class="moveable-image" [max-deg]="10" moveable-image>
+                <img src="images/mvp/img1.png" alt="image">
+                <h1>Инцидент не исчерпан</h1>
+            </div>
+        </div>
+
+        <div style="grid-column: span 2; grid-row: span 2" class="card big-square-card">
+            <div (click)="redirectToBlog(1)" class="big-card slideY" #visible>
+                <div class="moveable-image" moveable-image>
+                    <img src="images/mvp/img3.png" alt="image">
+                </div>
+                <div class="content">
+                    <h1>Нашу победу сопровождал шёпот бессменных лидеров</h1>
+                    <p>Предварительные выводы неутешительны: выбранный нами инновационный путь создаёт необходимость
+                        включения в производственный план целого ряда внеочередных мероприятий с учётом комплекса
+                        экспериментов, поражающих по своей масштабности и грандиозности! Как принято считать,
+                        независимые государства и по сей день остаются уделом либералов, которые жаждут быть преданы
+                        социально-демократической анафеме.</p>
+                </div>
+            </div>
+
+            <ul>
+                <p class="ul-header">Последние заголовки</p>
+                <li (click)="redirectToBlog(1)" class="article slideX" #visible>
+                    <h1>Нашу победу сопровождал шёпот</h1>
+                    <p>22 августа 2025</p>
+                </li>
+                <li (click)="redirectToBlog(1)" class="article slideX" #visible>
+                    <h1>Высококачественный прототип будущего проекта</h1>
+                    <p>22 августа 2025</p>
+                </li>
+                <li (click)="redirectToBlog(1)" class="article slideX" #visible>
+                    <h1>Свободу слова не задушить</h1>
+                    <p>22 августа 2025</p>
+                </li>
+                <li (click)="redirectToBlog(1)" class="article slideX" #visible>
+                    <h1>средства индивидуальной защиты</h1>
+                    <p>22 августа 2025</p>
+                </li>
+                <li (click)="redirectToBlog(1)" class="article slideX" #visible>
+                    <h1>Подтверждено: жизнь прекрасна</h1>
+                    <p>22 августа 2025</p>
+                </li>
+            </ul>
+        </div>
+
+        <div (click)="redirectToBlog(1)" style="grid-column: span 1" class="card small-square-card slideY" #visible>
+            <div class="moveable-image" [max-deg]="10" moveable-image>
+                <img src="images/mvp/img2.png" alt="image">
+                <h1>старческий скрип Амстердама</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="subheader">
+        <h1>Воистину радостный звук</h1>
+        <div class="line"></div>
+    </div>
+
+    <div class="grid grid2">
+        <div (click)="redirectToBlog(1)" style="grid-column: span 3" class="card separate-card">
+            <div class="slideX card-slide-minus" #visible>
+                <div class="moveable-image" moveable-image>
+                    <img src="images/mvp/img4.png" alt="image">
+                </div>
+            </div>
+            <div class="content slideX" #visible>
+                <h1>Русский север Подмосковья</h1>
+                <p>Внезапно, активно развивающиеся страны третьего мира лишь добавляют фракционных разногласий и
+                    разоблачены. Разнообразный и богатый опыт говорит нам, что высококачественный прототип будущего
+                    проекта способствует подготовке и реализации благоприятных перспектив.</p>
+                <a>
+                    Читать далее
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="12"
+                         fill="none" viewBox="0 0 24 12">
+                        <path fill="currentColor"
+                              d="M0 5.113h20.644L17.577 2.04 18.804.804 24 6l-5.196 5.196-1.227-1.235 3.067-3.074H0z"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <div (click)="redirectToBlog(1)" style="grid-column: span 1; animation-delay: .0s;" class="card vertical-card slideY" #visible>
+            <div class="moveable-image" moveable-image>
+                <img src="images/mvp/img1.png" alt="image">
+            </div>
+            <div class="content">
+                <h1>Водный поход 2025</h1>
+                <p>Задача организации, в особенности же экономическая повестка сегодняшнего дня не даёт нам иного
+                    выбора, кроме определения анализа существующих паттернов поведения!</p>
+            </div>
+        </div>
+
+        <div (click)="redirectToBlog(1)" style="grid-column: span 1; animation-delay: .1s" class="card vertical-card slideY" #visible>
+            <div class="moveable-image" moveable-image>
+                <img src="images/mvp/img2.png" alt="image">
+            </div>
+            <div class="content">
+                <h1>Саяны - Ергаки</h1>
+                <p>Прежде всего, реализация намеченных плановых заданий позволяет оценить значение форм воздействия.</p>
+            </div>
+        </div>
+
+        <div (click)="redirectToBlog(1)" style="grid-column: span 1; animation-delay: .2s" class="card vertical-card slideY" #visible>
+            <div class="moveable-image" moveable-image>
+                <img src="images/mvp/img3.png" alt="image">
+            </div>
+            <div class="content">
+                <h1>ПВД "Утробинская лыжня"</h1>
+                <p>Следует отметить, что существующая теория предопределяет высокую востребованность приоретизации
+                    разума над эмоциями.</p>
+            </div>
+        </div>
+    </div>
+</div>

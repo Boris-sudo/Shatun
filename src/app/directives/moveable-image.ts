@@ -1,35 +1,51 @@
-import {AfterViewInit, Directive, ElementRef, Input, Renderer2} from '@angular/core';
-import {AnimationsService} from '../services/animations';
+import {AfterViewInit, Directive, ElementRef, Input} from '@angular/core';
 
 @Directive({
-    selector: '[split-heading]'
+    selector: '[moveable-image]'
 })
-export class SplitHeading implements AfterViewInit {
-    @Input() splitText!: string;
+export class MoveableImage implements AfterViewInit {
+    @Input({ alias: 'max-deg', required: false }) MAX_DEG: number = 4;
 
     constructor(
-        private el: ElementRef<HTMLHeadingElement>,
-        private renderer: Renderer2,
-        private animationsService: AnimationsService
+        private el: ElementRef<HTMLDivElement>,
     ) {
     }
 
     ngAfterViewInit() {
-        this.splitIntroChars(this.el.nativeElement);
+        this.el.nativeElement.addEventListener('mouseenter', () => {
+            this.onMouseEnter(this.el.nativeElement);
+        });
     }
 
-    splitIntroChars(header: Element) {
-        header.innerHTML = '';
-        header.classList.add('split-header');
-        const text = this.splitText ?? header.textContent.trim();
-        Array.from(text).forEach((char, index) => {
-            const span = this.renderer.createElement('span');
-            span.textContent = char === ' ' ? '\u00A0' : char;
-            span.style.setProperty('--i', index);
-            header.appendChild(span);
+    onMouseEnter(image: HTMLDivElement) {
+        image.addEventListener('mousemove', (e) => {
+            this.onMouseMove(e, image);
         });
-        setTimeout(() => {
-            this.animationsService.addObservableElement(header);
-        }, 100);
+        image.addEventListener('mouseleave', () => {
+            this.onMouseLeave(image);
+        });
+    }
+
+    onMouseMove(e: MouseEvent, image: HTMLDivElement) {
+        const bound = image.getBoundingClientRect();
+        const centerX = bound.x + bound.width / 2;
+        const centerY = bound.y + bound.height / 2;
+
+        const x = e.clientX - centerX;
+        const y = e.clientY - centerY;
+        const degX = (x * 2 / bound.width) * this.MAX_DEG;
+        const degY = (y * 2 / bound.height) * this.MAX_DEG;
+
+        image.style.transform = `perspective(1500px) rotateY(${-degX}deg) rotateX(${degY}deg) scale3d(1,1,1)`;
+    }
+
+    onMouseLeave(image: HTMLDivElement) {
+        image.style.transform = `perspective(1500px) rotateY(0deg) rotateX(0deg)`;
+        image.removeEventListener('mousemove', (e) => {
+            this.onMouseMove(e, image)
+        });
+        image.removeEventListener('mouseleave', () => {
+            this.onMouseLeave(image);
+        });
     }
 }
