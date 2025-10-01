@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {RouterLink} from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
     selector: 'FooterComp',
@@ -23,6 +23,19 @@ import {RouterLink} from '@angular/router';
             grid-template-columns: repeat(3, 1fr);
             grid-template-rows: repeat(2, 1fr);
 
+            @media screen and (max-width: 1000px) {
+                grid-template-columns: repeat(2, 1fr);
+
+                .media-container {
+                    grid-column: span 2;
+                }
+            }
+
+            @media screen and (max-width: 600px) {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+            }
+
             div {
                 width:   100%;
                 height:  100%;
@@ -40,6 +53,10 @@ import {RouterLink} from '@angular/router';
             flex-direction:  row;
             flex-wrap:       wrap;
             gap:             20px;
+
+            @media screen and (max-width: 600px) {
+                display: none !important;
+            }
 
             .link {
                 width:          fit-content;
@@ -167,22 +184,22 @@ import {RouterLink} from '@angular/router';
         <div class="container">
             <div class="grid-container">
                 <div class="links-container">
-                    <div routerLink="home" class="link">
+                    <div (click)="redirectTo('home')" class="link">
                         <a>Главная</a>
                         <a>Главная</a>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 9" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.59378 1.68719C2.45551 1.68719 2.3229 1.64477 2.22513 1.56928C2.12735 1.49379 2.07243 1.3914 2.07243 1.28463C2.07243 1.17787 2.12735 1.07548 2.22513 0.999985C2.3229 0.924492 2.45551 0.88208 2.59378 0.88208H8.85007C8.98835 0.88208 9.12096 0.924492 9.21873 0.999985C9.3165 1.07548 9.37143 1.17787 9.37143 1.28463V6.11526C9.37143 6.22203 9.3165 6.32442 9.21873 6.39991C9.12096 6.47541 8.98835 6.51782 8.85007 6.51782C8.7118 6.51782 8.57919 6.47541 8.48142 6.39991C8.38364 6.32442 8.32872 6.22203 8.32872 6.11526V2.25613L0.876779 8.00995C0.777947 8.08105 0.647227 8.11976 0.51216 8.11792C0.377093 8.11608 0.248224 8.07384 0.152702 8.00008C0.0571803 7.92633 0.00246433 7.82682 8.12257e-05 7.72254C-0.00230188 7.61825 0.0478339 7.51732 0.139927 7.441L7.59186 1.68719H2.59378Z" fill="currentColor"></path></svg>
                     </div>
-                    <div routerLink="blogs" class="link">
+                    <div (click)="redirectTo('blogs')" class="link">
                         <a>Блоги</a>
                         <a>Блоги</a>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 9" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.59378 1.68719C2.45551 1.68719 2.3229 1.64477 2.22513 1.56928C2.12735 1.49379 2.07243 1.3914 2.07243 1.28463C2.07243 1.17787 2.12735 1.07548 2.22513 0.999985C2.3229 0.924492 2.45551 0.88208 2.59378 0.88208H8.85007C8.98835 0.88208 9.12096 0.924492 9.21873 0.999985C9.3165 1.07548 9.37143 1.17787 9.37143 1.28463V6.11526C9.37143 6.22203 9.3165 6.32442 9.21873 6.39991C9.12096 6.47541 8.98835 6.51782 8.85007 6.51782C8.7118 6.51782 8.57919 6.47541 8.48142 6.39991C8.38364 6.32442 8.32872 6.22203 8.32872 6.11526V2.25613L0.876779 8.00995C0.777947 8.08105 0.647227 8.11976 0.51216 8.11792C0.377093 8.11608 0.248224 8.07384 0.152702 8.00008C0.0571803 7.92633 0.00246433 7.82682 8.12257e-05 7.72254C-0.00230188 7.61825 0.0478339 7.51732 0.139927 7.441L7.59186 1.68719H2.59378Z" fill="currentColor"></path></svg>
                     </div>
-                    <div routerLink="future" class="link">
+                    <div (click)="redirectTo('future')" class="link">
                         <a>Будущие походы</a>
                         <a>Будущие походы</a>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 9" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.59378 1.68719C2.45551 1.68719 2.3229 1.64477 2.22513 1.56928C2.12735 1.49379 2.07243 1.3914 2.07243 1.28463C2.07243 1.17787 2.12735 1.07548 2.22513 0.999985C2.3229 0.924492 2.45551 0.88208 2.59378 0.88208H8.85007C8.98835 0.88208 9.12096 0.924492 9.21873 0.999985C9.3165 1.07548 9.37143 1.17787 9.37143 1.28463V6.11526C9.37143 6.22203 9.3165 6.32442 9.21873 6.39991C9.12096 6.47541 8.98835 6.51782 8.85007 6.51782C8.7118 6.51782 8.57919 6.47541 8.48142 6.39991C8.38364 6.32442 8.32872 6.22203 8.32872 6.11526V2.25613L0.876779 8.00995C0.777947 8.08105 0.647227 8.11976 0.51216 8.11792C0.377093 8.11608 0.248224 8.07384 0.152702 8.00008C0.0571803 7.92633 0.00246433 7.82682 8.12257e-05 7.72254C-0.00230188 7.61825 0.0478339 7.51732 0.139927 7.441L7.59186 1.68719H2.59378Z" fill="currentColor"></path></svg>
                     </div>
-                    <div routerLink="gallery" class="link">
+                    <div (click)="redirectTo('gallery')" class="link">
                         <a>Галлерея</a>
                         <a>Галлерея</a>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 9" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.59378 1.68719C2.45551 1.68719 2.3229 1.64477 2.22513 1.56928C2.12735 1.49379 2.07243 1.3914 2.07243 1.28463C2.07243 1.17787 2.12735 1.07548 2.22513 0.999985C2.3229 0.924492 2.45551 0.88208 2.59378 0.88208H8.85007C8.98835 0.88208 9.12096 0.924492 9.21873 0.999985C9.3165 1.07548 9.37143 1.17787 9.37143 1.28463V6.11526C9.37143 6.22203 9.3165 6.32442 9.21873 6.39991C9.12096 6.47541 8.98835 6.51782 8.85007 6.51782C8.7118 6.51782 8.57919 6.47541 8.48142 6.39991C8.38364 6.32442 8.32872 6.22203 8.32872 6.11526V2.25613L0.876779 8.00995C0.777947 8.08105 0.647227 8.11976 0.51216 8.11792C0.377093 8.11608 0.248224 8.07384 0.152702 8.00008C0.0571803 7.92633 0.00246433 7.82682 8.12257e-05 7.72254C-0.00230188 7.61825 0.0478339 7.51732 0.139927 7.441L7.59186 1.68719H2.59378Z" fill="currentColor"></path></svg>
@@ -236,6 +253,15 @@ import {RouterLink} from '@angular/router';
 })
 export class Footer {
 
-    constructor() {
+    constructor(
+        private router: Router
+    ) {
+    }
+
+    redirectTo(url: string) {
+        window.scrollTo(0,0);
+        setTimeout(() => {
+            this.router.navigate([url]).then();
+        })
     }
 }

@@ -87,7 +87,7 @@ export class Gallery implements AfterViewInit, OnDestroy {
             this.animationsService.addObservableElement(image);
             columns.item(index)!.appendChild(image);
 
-            await sleep(10);
+            await sleep(100);
         }
     }
 }

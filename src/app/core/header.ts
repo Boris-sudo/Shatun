@@ -24,7 +24,12 @@ import {UtilsService} from '../services/utils';
             border-bottom:       1px solid transparent;
             overflow:            hidden;
 
+            @media screen and (max-width: 600px) {
+                padding: 10px 16px;
+            }
+
             .logo {
+                height:         100%;
                 display:        flex;
                 flex-direction: row;
                 align-items:    center;
@@ -34,6 +39,7 @@ import {UtilsService} from '../services/utils';
                     transition-duration: .3s;
                     cursor:              pointer;
                     user-select:         none;
+                    height:              100%;
                 }
 
                 p {
@@ -49,7 +55,7 @@ import {UtilsService} from '../services/utils';
                 flex-direction: row;
                 align-items:    center;
                 gap:            16px;
-                padding:        15px 10px;
+                padding:        0 10px;
                 height:         52px;
                 background:     var(--background-secondary);
                 border-radius:  var(--br-8);
@@ -59,9 +65,25 @@ import {UtilsService} from '../services/utils';
                 opacity:        0.5;
                 color:          var(--text-primary);
 
+                @media screen and (max-width: 600px) {
+                    padding: 0 8px;
+                    height:  40px;
+                    gap:     10px;
+
+                    &:hover {
+                        padding: 0 10px !important;
+                        gap:     16px !important;
+                    }
+                }
+
                 p {
                     font-weight: 500;
                     user-select: none;
+                    font-size:   16px;
+
+                    @media screen and (max-width: 600px) {
+                        font-size: 14px;
+                    }
                 }
 
                 .lines {
@@ -81,7 +103,7 @@ import {UtilsService} from '../services/utils';
                 }
 
                 &:hover {
-                    padding:    15px 25px;
+                    padding:    0 25px;
                     gap:        24px;
                     background: var(--background-neutral);
                     color:      var(--background-primary);
@@ -139,28 +161,28 @@ import {UtilsService} from '../services/utils';
 
             &:not(.small) {
                 .logo {
-                    p {
-                        font-size: 45px;
-                    }
-
                     img {
                         height: 60px;
+
+                        @media screen and (max-width: 600px) {
+                            height: 50px;
+                        }
                     }
                 }
             }
 
             &.small {
-                height: var(--header-small-height) !important;
+                height:           var(--header-small-height) !important;
                 background-color: var(--background-primary);
                 border-bottom:    1px solid var(--background-secondary);
 
                 .logo {
-                    p {
-                        font-size: 30px;
-                    }
-
                     img {
                         height: 45px;
+
+                        @media screen and (max-width: 600px) {
+                            height: 40px;
+                        }
                     }
                 }
             }

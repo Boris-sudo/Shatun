@@ -29,6 +29,11 @@
 :root { /* sizes */
     --header-small-height: 80px;
     --header-big-height:   120px;
+
+    @media screen and (max-width: 600px) {
+        --header-small-height: 60px;
+        --header-big-height: 100px;
+    }
 }
 
 :root { /* border radius */

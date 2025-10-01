@@ -1,9 +1,9 @@
-import {AfterViewInit, Component, ElementRef, OnDestroy, QueryList, ViewChild, ViewChildren} from '@angular/core';
-import {Router} from '@angular/router';
-import {BlogsService} from '../../services/blogs';
-import {AnimationsService} from '../../services/animations';
-import {SplitHeading} from '../../directives/split-heading';
-import {MoveableImage} from '../../directives/moveable-image';
+import { AfterViewInit, Component, ElementRef, OnDestroy, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Router } from '@angular/router';
+import { BlogsService } from '../../services/blogs';
+import { AnimationsService } from '../../services/animations';
+import { SplitHeading } from '../../directives/split-heading';
+import { MoveableImage } from '../../directives/moveable-image';
 
 @Component({
     selector: 'app-blogs',
@@ -25,7 +25,9 @@ export class Blogs implements AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit() {
-        this.visibleElements.forEach(element => this.animationsService.addObservableElement(element.nativeElement));
+        setTimeout(() => {
+            this.visibleElements.forEach(element => this.animationsService.addObservableElement(element.nativeElement));
+        }, 10);
     }
 
     ngOnDestroy() {
@@ -34,8 +36,8 @@ export class Blogs implements AfterViewInit, OnDestroy {
 
     redirectToBlog(id: number) {
         window.scrollTo({
-            top: 0,
+            top: 0
         });
-        this.router.navigate([`blog/${id}`]);
+        this.router.navigate([`blog/${ id }`]);
     }
 }

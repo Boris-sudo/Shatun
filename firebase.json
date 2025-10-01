@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/shatun",
+    "public": "dist/shatun/browser",
     "ignore": [
       "firebase.json",
       "**/.*",

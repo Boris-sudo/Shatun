@@ -1,5 +1,4 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, QueryList, ViewChildren } from '@angular/core';
-import { MoveableImage } from '../../directives/moveable-image';
 import { SplitHeading } from '../../directives/split-heading';
 import { Router } from '@angular/router';
 import { BlogsService } from '../../services/blogs';
