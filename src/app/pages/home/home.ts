@@ -1,7 +1,7 @@
-import {AfterViewInit, Component, ElementRef, QueryList, viewChild, ViewChild, ViewChildren} from '@angular/core';
-import {UtilsService} from '../../services/utils';
-import {BlogsService} from '../../services/blogs';
-import {Router} from '@angular/router';
+import { AfterViewInit, Component, ElementRef, QueryList, viewChild, ViewChild, ViewChildren } from '@angular/core';
+import { UtilsService } from '../../services/utils';
+import { ExpeditionsService } from '../../services/expeditions';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'HomePage',
@@ -20,9 +20,9 @@ export class Home implements AfterViewInit {
     rollerMax: number = 5;
 
     constructor(
-        private blogsService: BlogsService,
+        private blogsService: ExpeditionsService,
         private utilsService: UtilsService,
-        private router: Router,
+        private router: Router
     ) {
         const screen_width = window.innerWidth;
         if (screen_width < 600) this.rollerMax = 6;
@@ -45,16 +45,16 @@ export class Home implements AfterViewInit {
         this.parallaxImages.forEach(image => {
             const max_move = Number(image.nativeElement.getAttribute('parallaxMove'));
             const current_move = percent * max_move;
-            image.nativeElement.style.transform = `translateY(${current_move}${max_move === 100 ? '%' : 'vh'})`;
-        })
+            image.nativeElement.style.transform = `translateY(${ current_move }${ max_move === 100 ? '%' : 'vh' })`;
+        });
     }
 
     scrollTo(id: string) {
         const top = document.getElementById(id)!.getBoundingClientRect().top;
         scrollTo({
             top: top,
-            behavior: 'smooth',
-        })
+            behavior: 'smooth'
+        });
     }
 
     private getRollerTransform() {
@@ -65,7 +65,7 @@ export class Home implements AfterViewInit {
             currentTransform = Number(currentTransformString.split('(')[1].split('px')[0]);
             if (currentTransform < 0) currentTransform *= -1;
         }
-        return currentTransform
+        return currentTransform;
     }
 
     rollerNext() {
@@ -77,7 +77,7 @@ export class Home implements AfterViewInit {
         const currentTransform = this.getRollerTransform();
 
         const transform = currentTransform + card_width + gap;
-        this.roller.nativeElement.style.transform = `translateX(-${transform}px)`;
+        this.roller.nativeElement.style.transform = `translateX(-${ transform }px)`;
 
         this.rollerPosition++;
     }
@@ -91,7 +91,7 @@ export class Home implements AfterViewInit {
         const currentTransform = this.getRollerTransform();
 
         const transform = currentTransform - card_width - gap;
-        this.roller.nativeElement.style.transform = `translateX(-${transform}px)`;
+        this.roller.nativeElement.style.transform = `translateX(-${ transform }px)`;
 
         this.rollerPosition--;
     }
@@ -105,8 +105,8 @@ export class Home implements AfterViewInit {
 
 
         function disableScroll() {
-            addEventListener('wheel', preventScroll, {passive: false});
-            addEventListener('touchmove', preventScroll, {passive: false});
+            addEventListener('wheel', preventScroll, { passive: false });
+            addEventListener('touchmove', preventScroll, { passive: false });
         }
 
         function enableScroll() {
@@ -126,7 +126,7 @@ export class Home implements AfterViewInit {
             cur = x;
             const currentTransform = this.getRollerTransform();
             const transform = Math.min(maxTransform, currentTransform + delta);
-            this.roller.nativeElement.style.transform = `translateX(-${transform}px)`;
+            this.roller.nativeElement.style.transform = `translateX(-${ transform }px)`;
         };
         const moveEnd = () => {
             enableScroll();
@@ -145,7 +145,7 @@ export class Home implements AfterViewInit {
                         transform = newTransform, transformIndex = i + 1;
                 }
                 this.rollerPosition = transformIndex;
-                this.roller.nativeElement.style.transform = `translateX(-${transform}px)`;
+                this.roller.nativeElement.style.transform = `translateX(-${ transform }px)`;
             });
         };
 
@@ -158,7 +158,10 @@ export class Home implements AfterViewInit {
     }
 
     redirectTo(url: string) {
-        this.router.navigate([url]);
+        window.scrollTo(0, 0);
+        setTimeout(() => {
+            this.router.navigate([url]);
+        });
     }
 
     protected readonly String = String;

@@ -1,8 +1,8 @@
 import {AfterViewInit, Component, effect, ElementRef, OnDestroy, Renderer2, signal, ViewChild} from '@angular/core';
 import {SplitHeading} from '../../directives/split-heading';
-import {BlogPost} from '../../models/blog-post.model';
+import {ExpeditionPost} from '../../models/expedition-post.model';
 import {ActivatedRoute, Router} from '@angular/router';
-import {BlogsService} from '../../services/blogs';
+import {ExpeditionsService} from '../../services/expeditions';
 import {AnimationsService} from '../../services/animations';
 import {ImagesService} from '../../services/images';
 

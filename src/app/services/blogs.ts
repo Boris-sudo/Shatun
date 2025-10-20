@@ -1,5 +1,5 @@
 import {Injectable, signal} from '@angular/core';
-import {BlogPost} from '../models/blog-post.model';
+import {ExpeditionPost} from '../models/expedition-post.model';
 import {HttpClient} from '@angular/common/http';
 import {firstValueFrom, forkJoin, map, Observable} from 'rxjs';
 
@@ -7,7 +7,7 @@ import {firstValueFrom, forkJoin, map, Observable} from 'rxjs';
     providedIn: 'root'
 })
 export class BlogsService {
-    blogs = signal<BlogPost[]>([]);
+    blogs = signal<ExpeditionPost[]>([]);
     private readonly basePath = 'blogs/';
 
     constructor(private http: HttpClient) {
@@ -28,7 +28,7 @@ export class BlogsService {
         );
     }
 
-    getBlog(id: number): BlogPost | undefined {
+    getBlog(id: number): ExpeditionPost | undefined {
         for (const blog of this.blogs()) {
             if (blog.id === id)
                 return blog;

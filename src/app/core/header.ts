@@ -1,14 +1,11 @@
-import {AfterViewInit, Component, effect, ElementRef, HostListener, ViewChild} from '@angular/core';
-import {SidebarInteractionService} from '../services/sidebar-interaction';
-import {NavigationEnd, Router, RouterLink} from '@angular/router';
-import {filter} from 'rxjs';
-import {UtilsService} from '../services/utils';
+import { AfterViewInit, Component, effect, ElementRef, ViewChild } from '@angular/core';
+import { SidebarInteractionService } from '../services/sidebar-interaction';
+import { Router } from '@angular/router';
+import { UtilsService } from '../services/utils';
 
 @Component({
     selector: 'HeaderComp',
-    imports: [
-        RouterLink
-    ],
+    imports: [],
     styles: `
         .container {
             position:            fixed;
@@ -190,7 +187,7 @@ import {UtilsService} from '../services/utils';
     `,
     template: `
         <div class="container" #container>
-            <div routerLink="/" class="logo">
+            <div (click)="redirectTo('/')" class="logo">
                 <img src="logo.png" alt="sperm">
             </div>
             <div (click)="interactionToggle()" class="menu-icon" #menuIcon>
@@ -212,8 +209,7 @@ export class Header implements AfterViewInit {
 
     constructor(
         private sidebarInteractionService: SidebarInteractionService,
-        private utilsService: UtilsService,
-        private router: Router,
+        private router: Router
     ) {
         effect(() => {
             const status = this.sidebarInteractionService.status();
@@ -231,6 +227,13 @@ export class Header implements AfterViewInit {
         this.sidebarInteractionService.toggle();
     }
 
+    redirectTo(url: string) {
+        window.scrollTo(0, 0);
+        setTimeout(() => {
+            this.router.navigate([url]);
+        });
+    }
+
     Open() {
         if (this.menuIconText === undefined) return;
 
@@ -240,7 +243,7 @@ export class Header implements AfterViewInit {
         setTimeout(() => {
             this.menuIcon.nativeElement.style.background = 'var(--text-secondary)';
             this.menuIconText.nativeElement.style.color = 'var(--background-secondary)';
-        }, 600)
+        }, 600);
     }
 
     Close() {
@@ -252,7 +255,7 @@ export class Header implements AfterViewInit {
 
         setTimeout(() => {
             this.container.nativeElement.classList.remove('sidebar-opened');
-        }, 600)
+        }, 600);
     }
 
     onScroll() {
@@ -260,8 +263,8 @@ export class Header implements AfterViewInit {
 
         const top = window.scrollY;
         if (top > 0)
-            this.container.nativeElement.classList.add('small')
+            this.container.nativeElement.classList.add('small');
         else
-            this.container.nativeElement.classList.remove('small')
+            this.container.nativeElement.classList.remove('small');
     }
 }

@@ -1,0 +1,90 @@
+@import '../../../stylesheets/elements/grid-cards.css';
+
+@property --trans-delay {
+    syntax:        "<time>";
+    inherits:      true;
+    initial-value: 0.0s;
+}
+
+@property --transform-image {
+    syntax:        "<length-percentage>";
+    inherits:      true;
+    initial-value: -100%;
+}
+
+@property --transform-content {
+    syntax:        "<length-percentage>";
+    inherits:      true;
+    initial-value: 100%;
+}
+
+.container {
+    display:        flex;
+    flex-direction: column;
+    width:          100%;
+    height:         fit-content;
+    padding-top:    var(--header-big-height);
+    padding-bottom: 100px;
+}
+
+.header {
+    margin:         0 auto;
+    width:          100%;
+    display:        flex;
+    flex-direction: column;
+    gap:            20px;
+    max-width:      1200px;
+    padding:        50px 16px;
+
+    p {
+        font-size:   16px;
+        font-weight: 600;
+        color:       var(--text-secondary);
+        max-width:   800px;
+
+        @media screen and (max-width: 600px) {
+            font-size:   13px;
+            font-weight: 500;
+        }
+    }
+}
+
+.subheader {
+    display:         flex;
+    flex-direction:  column;
+    width:           fit-content;
+    align-items:     center;
+    justify-content: center;
+    margin:          50px auto;
+    padding:         0 26px;
+
+    h1 {
+        font-size:   4em;
+        font-weight: 700;
+        font-family: var(--ff-noto), sans-serif;
+        color:       var(--text-accent);
+        margin:      0 0 20px 0;
+        opacity:     .6;
+        text-align:  center;
+
+        @media screen and (max-width: 800px) {
+            font-size: 3em;
+        }
+        @media screen and (max-width: 600px) {
+            font-size: 2em;
+        }
+    }
+
+    .line {
+        display:             block;
+        width:               30%;
+        height:              3px;
+        border-radius:       var(--br-100);
+        background:          var(--background-secondary);
+        transition-duration: .3s;
+    }
+
+    &:hover > .line {
+        width: 50%;
+    }
+}

@@ -24,16 +24,16 @@ import { Router, RouterLink } from '@angular/router';
             grid-template-rows: repeat(2, 1fr);
 
             @media screen and (max-width: 1000px) {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(1, 1fr);
+                grid-template-rows: repeat(2, 1fr);
 
-                .media-container {
-                    grid-column: span 2;
+                .links-container {
+                    display: none;
                 }
-            }
 
-            @media screen and (max-width: 600px) {
-                grid-template-columns: 1fr;
-                grid-template-rows: auto;
+                .contact-container {
+                    display: none;
+                }
             }
 
             div {
@@ -53,10 +53,6 @@ import { Router, RouterLink } from '@angular/router';
             flex-direction:  row;
             flex-wrap:       wrap;
             gap:             20px;
-
-            @media screen and (max-width: 600px) {
-                display: none !important;
-            }
 
             .link {
                 width:          fit-content;
@@ -123,9 +119,12 @@ import { Router, RouterLink } from '@angular/router';
         }
 
         .contact-container {
-            grid-row:       span 1;
+            grid-row:       span 2;
             grid-column:    span 1;
             flex-direction: column;
+            height:         100%;
+            width:          100%;
+            display:        flex;
         }
 
         .media-container {
@@ -146,6 +145,7 @@ import { Router, RouterLink } from '@angular/router';
             }
 
             p {
+                text-align:  center;
                 font-size:   20px;
                 font-weight: 600;
             }

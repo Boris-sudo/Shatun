@@ -1,6 +1,6 @@
-import { AfterViewInit, Component, effect, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, effect, ElementRef, ViewChild } from '@angular/core';
 import { SidebarInteractionService } from '../services/sidebar-interaction';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'SidebarComp',

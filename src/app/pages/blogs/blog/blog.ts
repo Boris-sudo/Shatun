@@ -1,38 +1,40 @@
 import {
     AfterViewInit,
-    Component,
-    effect,
+    Component, effect,
     ElementRef,
     OnDestroy,
     QueryList,
     Renderer2,
-    signal,
-    ViewChild
+    signal, ViewChild,
+    ViewChildren
 } from '@angular/core';
-import {BlogPost} from '../../../models/blog-post.model';
-import {BlogsService} from '../../../services/blogs';
-import {ActivatedRoute, Router} from '@angular/router';
-import {AnimationsService} from '../../../services/animations';
-import {SplitHeading} from '../../../directives/split-heading';
+import { SplitHeading } from '../../../directives/split-heading';
+import { MoveableImage } from '../../../directives/moveable-image';
+import { ExpeditionPost } from '../../../models/expedition-post.model';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ExpeditionsService } from '../../../services/expeditions';
+import { AnimationsService } from '../../../services/animations';
+import { BlogsService } from '../../../services/blogs';
 
 @Component({
     selector: 'app-blog',
     imports: [
-        SplitHeading
+        SplitHeading,
+        MoveableImage
     ],
     templateUrl: './blog.html',
     styleUrl: './blog.css'
 })
 export class Blog implements AfterViewInit, OnDestroy {
+    @ViewChildren('visible') visibleElements!: QueryList<ElementRef>;
     @ViewChild('gallery') galleryContainer!: ElementRef<HTMLDivElement>;
     @ViewChild('bigScreenContent') bigScreenContent!: ElementRef<HTMLDivElement>;
     @ViewChild('smallScreenContent') smallScreenContent!: ElementRef<HTMLDivElement>;
-    blog!: BlogPost;
+    blog!: ExpeditionPost;
 
     private galleryColumns = 0;
 
     private contentLoaded = signal<boolean>(false);
-    private contentGenerated = signal<boolean>(false);
     public blogLoaded = signal<boolean>(false);
 
     constructor(
@@ -47,14 +49,6 @@ export class Blog implements AfterViewInit, OnDestroy {
             if (blogs.length > 0) this.getBlog();
         });
         effect(() => {
-            const loaded = this.contentGenerated();
-            if (loaded) {
-                setTimeout(() => {
-                    this.animationsService.loadObserver();
-                })
-            }
-        })
-        effect(() => {
             const loaded = this.contentLoaded() && this.blogLoaded();
             if (loaded) {
                 setTimeout(() => {
@@ -62,8 +56,9 @@ export class Blog implements AfterViewInit, OnDestroy {
                         this.setImages();
                     });
                     this.setImages();
-                    this.generateSmallScreenContent();
-                    this.generateBigScreenContent();
+                    this.visibleElements.forEach(el => {
+                        this.animationsService.addObservableElement(el.nativeElement);
+                    });
                 });
             }
         });
@@ -81,13 +76,20 @@ export class Blog implements AfterViewInit, OnDestroy {
         const id = Number(this.route.snapshot.paramMap.get('id'));
         const blog = this.blogsService.getBlog(id);
         if (blog === undefined)
-            this.router.navigate(['blogs']);
+            this.router.navigate(['futures']);
         this.blog = blog!;
         this.blogLoaded.set(true);
     }
 
+    redirectTo(url: string) {
+        window.scrollTo(0, 0);
+        setTimeout(() => {
+            this.router.navigate([url]);
+        });
+    }
+
     async setImages() {
-        const sleep = (delay: number) => new Promise((resolve) => setTimeout(resolve, delay))
+        const sleep = (delay: number) => new Promise((resolve) => setTimeout(resolve, delay));
 
         const windowWidth = window.innerWidth;
         let columnsCount = 0;
@@ -100,13 +102,13 @@ export class Blog implements AfterViewInit, OnDestroy {
         this.galleryColumns = columnsCount;
 
         const gallery = this.galleryContainer.nativeElement;
-        gallery.innerHTML = "";
+        gallery.innerHTML = '';
 
         await sleep(10);
 
         for (let i = 0; i < this.galleryColumns; i++) {
             const col = this.renderer.createElement('div');
-            col.style.width = `calc((100% - 20px * ${this.galleryColumns - 1}) / ${this.galleryColumns})`;
+            col.style.width = `calc((100% - 20px * ${ this.galleryColumns - 1 }) / ${ this.galleryColumns })`;
             gallery.appendChild(col);
         }
 
@@ -126,76 +128,5 @@ export class Blog implements AfterViewInit, OnDestroy {
             await sleep(10);
         }
     }
-
-    generateBigScreenContent() {
-        const bigContainer = this.bigScreenContent.nativeElement;
-
-        let index = 1;
-        for (const blogContent of this.blog.content) {
-            const textDiv = this.renderer.createElement('div');
-            this.animationsService.addObservableElement(textDiv);
-            textDiv.classList.add('text-container');
-            textDiv.classList.add('slideX');
-            const title = this.renderer.createElement('p');
-            title.classList.add('title');
-            title.innerHTML = blogContent.title;
-            textDiv.appendChild(title);
-            const text = this.renderer.createElement('p');
-            text.classList.add('text');
-            text.innerHTML = blogContent.text;
-            textDiv.appendChild(text);
-
-            const imageDiv = this.renderer.createElement('div');
-            imageDiv.classList.add('slideX')
-            this.animationsService.addObservableElement(imageDiv);
-            if (index === 1) imageDiv.classList.add('image1-container')
-            else imageDiv.classList.add('image2-container');
-            for (let i = 0; i < 2 - index; i++) {
-                const image = this.renderer.createElement('img');
-                image.src = blogContent.images[i];
-                imageDiv.appendChild(image);
-            }
-
-            if (index == 0) {
-                bigContainer.appendChild(textDiv);
-                bigContainer.appendChild(imageDiv);
-            } else {
-                bigContainer.appendChild(imageDiv);
-                bigContainer.appendChild(textDiv);
-            }
-
-            index = (index + 1) % 2;
-        }
-
-        this.contentGenerated.set(true);
-    }
-
-    generateSmallScreenContent() {
-        const smallContainer = this.smallScreenContent.nativeElement;
-
-        let index = 1;
-        for (const blogContent of this.blog.content) {
-            const textDiv = this.renderer.createElement('div');
-            textDiv.classList.add('text-container');
-            const title = this.renderer.createElement('p');
-            title.classList.add('title');
-            title.innerHTML = blogContent.title;
-            textDiv.appendChild(title);
-            const text = this.renderer.createElement('p');
-            text.classList.add('text');
-            text.innerHTML = blogContent.text;
-            textDiv.appendChild(text);
-
-            const imageDiv = this.renderer.createElement('div');
-            imageDiv.classList.add('image1-container')
-            const image = this.renderer.createElement('img');
-            image.src = blogContent.images[0];
-            imageDiv.appendChild(image);
-
-            smallContainer.appendChild(imageDiv);
-            smallContainer.appendChild(textDiv);
-
-            index = (index + 1) % 2;
-        }
-    }
 }
+

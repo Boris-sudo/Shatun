@@ -28,10 +28,27 @@ img.lazy {
 .split-header {
     overflow: hidden;
 
+    h1 {
+        font-size:      4em;
+        font-family:    var(--ff-manrope), sans-serif;
+        letter-spacing: 1px;
+        margin:         0;
+        overflow:       hidden;
+
+        @media screen and (max-width: 900px) {
+            font-size: 3em;
+        }
+
+        @media screen and (max-width: 600px) {
+            font-size: 2em;
+        }
+    }
+
     span {
         display:     inline-block;
         transform:   translateY(-120%);
-        will-change: transform;
+        opacity:     0;
+        will-change: transform, opacity;
     }
 
     &.visible {
@@ -54,10 +71,14 @@ img.lazy {
 
     &:hover {
         img {
-            transform: scale(1.02);
+            transform:  scale(1.02);
             box-shadow: 0 1px 10px rgba(from var(--text-primary) r g b / 0.2);
         }
     }
+}
+
+.overflow-important {
+    overflow: visible !important;
 }
 
 @keyframes fadeIn {
