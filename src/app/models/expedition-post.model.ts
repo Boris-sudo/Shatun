@@ -1,17 +1,25 @@
 export interface ExpeditionPost {
     id: number;
-    title: string;
-    small_content: string;
-    content: ExpeditionContent[];
-    tags: string[];
-    titles: string[];
     preview: string;
+    title: string;
     images: string[];
-    date: number;
+    content: FutureExpeditionContent[];
+    days: number;
+    difficulty: number;
+    distance: number;
+    price: number;
+    equipment: ExpeditionEquipment[];
+    small_content: string;
+    date: string;
 }
 
-export interface ExpeditionContent {
-    quote: string;
+export interface FutureExpeditionContent {
     text: string;
     images: string[];
+    title: string;
+}
+
+export interface ExpeditionEquipment {
+    name: string;
+    description: string;
 }

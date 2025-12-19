@@ -9,7 +9,7 @@ import {
     ViewChildren
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { ExpeditionsService } from '../../services/expeditions';
+import { FutureExpeditionsService } from '../../services/future-expeditions';
 import { AnimationsService } from '../../services/animations';
 import { SplitHeading } from '../../directives/split-heading';
 import { MoveableImage } from '../../directives/moveable-image';
@@ -33,11 +33,11 @@ export class FutureExpeditions implements AfterViewInit, OnDestroy {
 
     constructor(
         private router: Router,
-        private expeditionsService: ExpeditionsService,
+        private expeditionsService: FutureExpeditionsService,
         private animationsService: AnimationsService
     ) {
         effect(() => {
-            this.expeditions.set(this.expeditionsService.expeditions());
+            this.expeditions.set(this.expeditionsService.blogs());
         });
         effect(() => {
             const expeditionsSize = this.expeditions().length;

@@ -10,12 +10,18 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { AnimationsService } from '../../services/animations';
-import { BlogsService } from '../../services/blogs';
+import { PreviousExpeditionsService } from '../../services/previous-expeditions';
+import { BlogFilterModel } from '../../models/blog-filter.model';
+import { FormsModule } from '@angular/forms';
+import { BlogsFilterPipe } from '../../pipes/blogs-filter-pipe';
 import { ExpeditionPost } from '../../models/expedition-post.model';
 
 @Component({
     selector: 'app-blogs',
-    imports: [],
+    imports: [
+        FormsModule,
+        BlogsFilterPipe,
+    ],
     templateUrl: './blogs.html',
     styleUrl: './blogs.css'
 })
@@ -23,14 +29,30 @@ export class Blogs implements AfterViewInit, OnDestroy {
     @ViewChildren('visible') visibleElements!: QueryList<ElementRef>;
 
     blogs = signal<ExpeditionPost[]>([]);
+    blogFilter: BlogFilterModel = {
+        name: '',
+        year: 'all',
+        tags: []
+    };
+
+    years: number[] = [];
 
     constructor(
         private router: Router,
-        private blogsService: BlogsService,
+        private blogsService: PreviousExpeditionsService,
         private animationsService: AnimationsService
     ) {
         effect(() => {
             this.blogs.set(this.blogsService.blogs());
+        });
+        effect(() => {
+            const blogs = this.blogs();
+            if (blogs.length === 0) return;
+            for (const blog of blogs) {
+                const year = Number(blog.date.split('.')[2]);
+                this.years.push(year);
+            }
+            this.years = [...new Set(this.years)];
         });
     }
 
@@ -50,7 +72,11 @@ export class Blogs implements AfterViewInit, OnDestroy {
     }
 
     redirectToId(id: number) {
-        this.redirectTo(`blog/${id}`);
+        this.redirectTo(`blog/${ id }`);
+    }
+
+    ConvertDate(date: string) {
+        return date.split('.').join(' ');
     }
 }
 

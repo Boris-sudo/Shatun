@@ -61,9 +61,9 @@
 
                     <ul>
                         <p class="ul-header">Последние заголовки</p>
-                        @for (title of expeditions()[1].titles; track expeditions()) {
+                        @for (content of expeditions()[1].content; track expeditions()) {
                             <li (click)="redirectToBlog(expeditions()[1].id)" class="article slideX" #visible>
-                                <h1>{{ title }}</h1>
+                                <h1>{{ content.title }}</h1>
                                 <p>{{ expeditions()[1].date }}</p>
                             </li>
 

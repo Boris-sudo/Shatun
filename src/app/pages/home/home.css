@@ -101,8 +101,8 @@
     .blocks {
         width:       100%;
         height:      fit-content;
-        overflow-x:  auto;
-        overflow-y:  visible;
+        overflow-x:  scroll;
+        overflow-y:  hidden;
         padding-top: 20px;
 
         .blocks-content {
@@ -371,7 +371,7 @@
                     width:               100%;
                     z-index:             3;
                     color:               var(--background-primary);
-                    max-height:          calc(32px * 2 + 36px);
+                    max-height:          calc(32px * 2 + 73.6px);
                     padding:             32px;
                     transition-duration: .6s;
 
@@ -380,6 +380,7 @@
                         margin-top:     0;
                         margin-bottom:  32px;
                         letter-spacing: 1px;
+                        min-height:     73.6px;
                     }
 
                     p {

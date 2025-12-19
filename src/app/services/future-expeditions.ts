@@ -1,14 +1,14 @@
 import {Injectable, signal} from '@angular/core';
-import {ExpeditionPost} from '../models/expedition-post.model';
 import {HttpClient} from '@angular/common/http';
 import {firstValueFrom, forkJoin, map, Observable} from 'rxjs';
+import { ExpeditionPost } from '../models/expedition-post.model';
 
 @Injectable({
     providedIn: 'root'
 })
-export class BlogsService {
+export class FutureExpeditionsService {
     blogs = signal<ExpeditionPost[]>([]);
-    private readonly basePath = 'blogs/';
+    private readonly basePath = 'будущие походы/';
 
     constructor(private http: HttpClient) {
         firstValueFrom(this.getAllBlogs()).then(resp => {

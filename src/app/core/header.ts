@@ -1,7 +1,6 @@
 import { AfterViewInit, Component, effect, ElementRef, ViewChild } from '@angular/core';
 import { SidebarInteractionService } from '../services/sidebar-interaction';
 import { Router } from '@angular/router';
-import { UtilsService } from '../services/utils';
 
 @Component({
     selector: 'HeaderComp',
@@ -95,7 +94,7 @@ import { UtilsService } from '../services/utils';
                         width:         36px;
                         height:        2px;
                         border-radius: var(--br-100);
-                        background:    var(--background-neutral);
+                        background:    var(--text-secondary);
                     }
                 }
 
@@ -103,28 +102,10 @@ import { UtilsService } from '../services/utils';
                     padding:    0 25px;
                     gap:        24px;
                     background: var(--background-neutral);
-                    color:      var(--background-primary);
+                    color:      var(--text-primary);
 
-                    .line {
-                        background: var(--background-primary) !important;
-                    }
-                }
-
-                &.active {
-                    background: var(--background-neutral);
-                    color:      var(--background-primary);
-
-                    .line {
-                        width:      20px;
-                        background: var(--background-primary) !important;
-
-                        &:nth-child(1) {
-                            transform: translateY(4px) rotate(45deg);
-                        }
-
-                        &:nth-child(2) {
-                            transform: translateY(-4px) rotate(-45deg);
-                        }
+                    .lines > .line {
+                        background: var(--text-primary);
                     }
                 }
             }
@@ -145,9 +126,25 @@ import { UtilsService } from '../services/utils';
             &.sidebar-opened {
                 border-bottom-color: var(--background-secondary);
 
-
                 &::after {
                     bottom: 0;
+                }
+
+                .menu-icon {
+                    color:      var(--background-secondary);
+                    background: var(--text-secondary);
+
+                    .lines > .line {
+                        background: var(--background-secondary);
+                    }
+                }
+
+                .menu-icon:hover {
+                    color: var(--background-primary);
+
+                    .lines > .line {
+                        background: var(--background-primary);
+                    }
                 }
             }
 
@@ -239,21 +236,14 @@ export class Header implements AfterViewInit {
 
         this.menuIconText.nativeElement.innerHTML = 'закрыть';
         this.container.nativeElement.classList.add('sidebar-opened');
-
-        setTimeout(() => {
-            this.menuIcon.nativeElement.style.background = 'var(--text-secondary)';
-            this.menuIconText.nativeElement.style.color = 'var(--background-secondary)';
-        }, 600);
     }
 
     Close() {
         if (this.menuIconText === undefined) return;
 
-        this.menuIconText.nativeElement.innerHTML = 'меню';
-        this.menuIcon.nativeElement.style.background = '';
-        this.menuIconText.nativeElement.style.color = '';
 
         setTimeout(() => {
+            this.menuIconText.nativeElement.innerHTML = 'меню';
             this.container.nativeElement.classList.remove('sidebar-opened');
         }, 600);
     }

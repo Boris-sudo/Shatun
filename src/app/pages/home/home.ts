@@ -1,11 +1,24 @@
-import { AfterViewInit, Component, ElementRef, QueryList, viewChild, ViewChild, ViewChildren } from '@angular/core';
+import {
+    AfterViewInit,
+    Component, effect,
+    ElementRef,
+    QueryList,
+    signal,
+    ViewChild,
+    ViewChildren
+} from '@angular/core';
 import { UtilsService } from '../../services/utils';
-import { ExpeditionsService } from '../../services/expeditions';
+import { FutureExpeditionsService } from '../../services/future-expeditions';
 import { Router } from '@angular/router';
+import { PreviousExpeditionsService } from '../../services/previous-expeditions';
+import { SlicePipe } from '@angular/common';
+import { ExpeditionPost } from '../../models/expedition-post.model';
 
 @Component({
     selector: 'HomePage',
-    imports: [],
+    imports: [
+        SlicePipe
+    ],
     templateUrl: './home.html',
     styleUrl: './home.css'
 })
@@ -16,11 +29,15 @@ export class Home implements AfterViewInit {
     @ViewChild('roller') roller!: ElementRef<HTMLDivElement>;
     @ViewChild('rollerContent') rollerContent!: ElementRef<HTMLDivElement>;
 
+    previous_expeditions = signal<ExpeditionPost[]>([]);
+    future_expeditions = signal<ExpeditionPost[]>([]);
+
     rollerPosition: number = 1;
     rollerMax: number = 5;
 
     constructor(
-        private blogsService: ExpeditionsService,
+        private futureExpeditionsService: FutureExpeditionsService,
+        private previousExpeditionsService: PreviousExpeditionsService,
         private utilsService: UtilsService,
         private router: Router
     ) {
@@ -28,6 +45,13 @@ export class Home implements AfterViewInit {
         if (screen_width < 600) this.rollerMax = 6;
         else if (screen_width < 1200) this.rollerMax = 5;
         else if (screen_width < 1980) this.rollerMax = 4;
+
+        effect(() => {
+            const expeditions = this.futureExpeditionsService.blogs();
+            const blogs = this.previousExpeditionsService.blogs();
+            this.previous_expeditions.set(blogs);
+            this.future_expeditions.set(expeditions);
+        });
     }
 
     ngAfterViewInit() {

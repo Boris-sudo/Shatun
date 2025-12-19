@@ -10,17 +10,18 @@ import {
 } from '@angular/core';
 import { SplitHeading } from '../../../directives/split-heading';
 import { MoveableImage } from '../../../directives/moveable-image';
-import { ExpeditionPost } from '../../../models/expedition-post.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ExpeditionsService } from '../../../services/expeditions';
 import { AnimationsService } from '../../../services/animations';
-import { BlogsService } from '../../../services/blogs';
+import { PreviousExpeditionsService } from '../../../services/previous-expeditions';
+import { ExpeditionPost } from '../../../models/expedition-post.model';
+import { SlicePipe } from '@angular/common';
 
 @Component({
     selector: 'app-blog',
     imports: [
         SplitHeading,
-        MoveableImage
+        MoveableImage,
+        SlicePipe
     ],
     templateUrl: './blog.html',
     styleUrl: './blog.css'
@@ -32,6 +33,8 @@ export class Blog implements AfterViewInit, OnDestroy {
     @ViewChild('smallScreenContent') smallScreenContent!: ElementRef<HTMLDivElement>;
     blog!: ExpeditionPost;
 
+    blogs = signal<ExpeditionPost[]>([]);
+
     private galleryColumns = 0;
 
     private contentLoaded = signal<boolean>(false);
@@ -41,11 +44,12 @@ export class Blog implements AfterViewInit, OnDestroy {
         private renderer: Renderer2,
         private route: ActivatedRoute,
         private router: Router,
-        private blogsService: BlogsService,
+        private blogsService: PreviousExpeditionsService,
         private animationsService: AnimationsService
     ) {
         effect(() => {
             const blogs = this.blogsService.blogs();
+            this.blogs.set(blogs);
             if (blogs.length > 0) this.getBlog();
         });
         effect(() => {

@@ -1,24 +1,24 @@
 import {Injectable, signal} from '@angular/core';
-import {ExpeditionPost} from '../models/expedition-post.model';
 import {HttpClient} from '@angular/common/http';
 import {firstValueFrom, forkJoin, map, Observable} from 'rxjs';
+import { ExpeditionPost } from '../models/expedition-post.model';
 
 @Injectable({
     providedIn: 'root'
 })
-export class ExpeditionsService {
-    expeditions = signal<ExpeditionPost[]>([]);
-    private readonly basePath = 'expeditions/';
+export class PreviousExpeditionsService {
+    blogs = signal<ExpeditionPost[]>([]);
+    private readonly basePath = 'прошедшие походы/';
 
     constructor(private http: HttpClient) {
-        firstValueFrom(this.getAllExpeditions()).then(resp => {
+        firstValueFrom(this.getAllBlogs()).then(resp => {
             firstValueFrom(resp).then(r => {
-                this.expeditions.set(r);
+                this.blogs.set(r);
             })
         }).catch(err => console.log(err));
     }
 
-    getAllExpeditions(): Observable<Observable<any>> {
+    getAllBlogs(): Observable<Observable<any>> {
         return this.http.get<any>(`${this.basePath}manifest.json`).pipe(
             map(manifest => manifest.files),
             map(files => files.map((file: string) =>
@@ -28,8 +28,8 @@ export class ExpeditionsService {
         );
     }
 
-    getExpedition(id: number): ExpeditionPost | undefined {
-        for (const blog of this.expeditions()) {
+    getBlog(id: number): ExpeditionPost | undefined {
+        for (const blog of this.blogs()) {
             if (blog.id === id)
                 return blog;
         }

@@ -87,66 +87,16 @@
         <div (touchstart)="rollerScroll($event)" (mousedown)="rollerScroll($event)" class="roller" #roller>
             <div class="roller-content" #rollerContent>
 
-                <div class="card">
-                    <img src="banner/img1.png" alt="">
-                    <div class="circle"><p>Читать ещё</p></div>
-                    <div class="text">
-                        <h1>На саяны</h1>
-                        <p>Лишь сделанные на базе интернет-аналитики выводы будут ограничены исключительно образом
-                            мышления. Учитывая ключевые сценарии поведения, социально-экономическое развитие создаёт
-                            предпосылки для глубокомысленных рассуждений.</p>
+                @for (blog of previous_expeditions() | slice : 0 : 6; track previous_expeditions()) {
+                    <div (click)="redirectTo('blog/'+blog.id)" class="card">
+                        <img [src]="blog.preview" alt="">
+                        <div class="circle"><p>Читать ещё</p></div>
+                        <div class="text">
+                            <h1>{{ blog.title }}</h1>
+                            <p>{{ blog.small_content }}</p>
+                        </div>
                     </div>
-                </div>
-                <div class="card">
-                    <img src="banner/img2.png" alt="">
-                    <div class="circle"><p>Читать ещё</p></div>
-                    <div class="text">
-                        <h1>На саяны</h1>
-                        <p>Лишь сделанные на базе интернет-аналитики выводы будут ограничены исключительно образом
-                            мышления. Учитывая ключевые сценарии поведения, социально-экономическое развитие создаёт
-                            предпосылки для глубокомысленных рассуждений.</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="banner/img3.png" alt="">
-                    <div class="circle"><p>Читать ещё</p></div>
-                    <div class="text">
-                        <h1>На саяны</h1>
-                        <p>Лишь сделанные на базе интернет-аналитики выводы будут ограничены исключительно образом
-                            мышления. Учитывая ключевые сценарии поведения, социально-экономическое развитие создаёт
-                            предпосылки для глубокомысленных рассуждений.</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="banner/img4.png" alt="">
-                    <div class="circle"><p>Читать ещё</p></div>
-                    <div class="text">
-                        <h1>На саяны</h1>
-                        <p>Лишь сделанные на базе интернет-аналитики выводы будут ограничены исключительно образом
-                            мышления. Учитывая ключевые сценарии поведения, социально-экономическое развитие создаёт
-                            предпосылки для глубокомысленных рассуждений.</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="banner/img1.png" alt="">
-                    <div class="circle"><p>Читать ещё</p></div>
-                    <div class="text">
-                        <h1>На саяны</h1>
-                        <p>Лишь сделанные на базе интернет-аналитики выводы будут ограничены исключительно образом
-                            мышления. Учитывая ключевые сценарии поведения, социально-экономическое развитие создаёт
-                            предпосылки для глубокомысленных рассуждений.</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="banner/img2.png" alt="">
-                    <div class="circle"><p>Читать ещё</p></div>
-                    <div class="text">
-                        <h1>На саяны</h1>
-                        <p>Лишь сделанные на базе интернет-аналитики выводы будут ограничены исключительно образом
-                            мышления. Учитывая ключевые сценарии поведения, социально-экономическое развитие создаёт
-                            предпосылки для глубокомысленных рассуждений.</p>
-                    </div>
-                </div>
+                }
 
             </div>
         </div>
@@ -174,8 +124,9 @@
                 <div style="border-bottom-left-radius: 0" class="card">
                     <img src="banner/img1.png" alt="">
 
-                    <div style="bottom: 0; left: 0; border-top-right-radius: var(--br-16)" class="text">
-                        <h1>Пра - водный поход 2025</h1>
+                    <div (click)="redirectTo('expedition/' + future_expeditions()[0].id)"
+                         style="bottom: 0; left: 0; border-top-right-radius: var(--br-16)" class="text">
+                        <h1>{{ future_expeditions()[0].title }}</h1>
                         <span style="left: 0; top: 50%; background: var(--background-accent-2)" class="circle"></span>
                         <button>
                             <p>Читать дальше</p>
@@ -192,44 +143,53 @@
                     <img src="banner/img2.png" alt="">
                 </div>
 
-                <div class="list-item">
-                    <h1>Саяны - Ергаки</h1>
-                    <button (click)="redirectTo('blogs')" class="control-button no-overflow">
-                        <p>Смотерть все</p>
-                        <span>
+                @if (future_expeditions().length >= 2) {
+                    <div class="list-item">
+                        <h1>{{ future_expeditions()[1].title }}</h1>
+                        <button (click)="redirectTo('expedition/'+future_expeditions()[1].id)"
+                                class="control-button no-overflow">
+                            <p>Читать</p>
+                            <span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="12"
                                  fill="none" viewBox="0 0 24 12"><path fill="currentColor"
                                                                        d="M0 5.113h20.644L17.577 2.04 18.804.804 24 6l-5.196 5.196-1.227-1.235 3.067-3.074H0z"></path></svg>
                             <span class="circle"></span>
                         </span>
-                    </button>
-                </div>
+                        </button>
+                    </div>
+                }
 
-                <div class="list-item">
-                    <h1>Сплав по Жиздре 2025</h1>
-                    <button (click)="redirectTo('blogs')" class="control-button no-overflow">
-                        <p>Смотерть все</p>
-                        <span>
+                @if (future_expeditions().length >= 3) {
+                    <div class="list-item">
+                        <h1>{{ future_expeditions()[2].title }}</h1>
+                        <button (click)="redirectTo('expedition/'+future_expeditions()[2].id)"
+                                class="control-button no-overflow">
+                            <p>Читать</p>
+                            <span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="12"
                                  fill="none" viewBox="0 0 24 12"><path fill="currentColor"
                                                                        d="M0 5.113h20.644L17.577 2.04 18.804.804 24 6l-5.196 5.196-1.227-1.235 3.067-3.074H0z"></path></svg>
                             <span class="circle"></span>
                         </span>
-                    </button>
-                </div>
+                        </button>
+                    </div>
+                }
 
-                <div class="list-item">
-                    <h1>ПВД "Русский север Подмосковья"</h1>
-                    <button (click)="redirectTo('blogs')" class="control-button no-overflow">
-                        <p>Смотерть все</p>
-                        <span>
+                @if (future_expeditions().length >= 4) {
+                    <div class="list-item">
+                        <h1>{{ future_expeditions()[3].title }}</h1>
+                        <button (click)="redirectTo('expedition/'+future_expeditions()[3].id)"
+                                class="control-button no-overflow">
+                            <p>Читать</p>
+                            <span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="12"
                                  fill="none" viewBox="0 0 24 12"><path fill="currentColor"
                                                                        d="M0 5.113h20.644L17.577 2.04 18.804.804 24 6l-5.196 5.196-1.227-1.235 3.067-3.074H0z"></path></svg>
                             <span class="circle"></span>
                         </span>
-                    </button>
-                </div>
+                        </button>
+                    </div>
+                }
             </div>
 
         </div>
