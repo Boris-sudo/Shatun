@@ -190,6 +190,10 @@
 
         .contact {
             margin: 20px 0 0;
+
+            @media screen and (max-width: 500px) {
+                width: 100%;
+            }
         }
 
         .info-row {
@@ -209,11 +213,19 @@
                     font-weight: 600;
                     font-family: var(--ff-inter), sans-serif;
 
+                    @media screen and (max-width: 450px) {
+                        font-size: 20px;
+                    }
+
                     &:not(:first-of-type) {
                         font-weight: 500;
                         font-size:   18px;
                         color:       var(--text-accent);
                         margin-top:  3px;
+
+                        @media screen and (max-width: 460px) {
+                            font-size: 16px;
+                        }
                     }
                 }
 
