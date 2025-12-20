@@ -1,10 +1,7 @@
-import {
-    AfterViewInit,
-    Component, effect, signal
-} from '@angular/core';
+import { AfterViewInit, Component, effect, ElementRef, signal, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ExpeditionPost } from '../../../models/expedition-post.model';
 import { FutureExpeditionsService } from '../../../services/future-expeditions';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-expedition',
@@ -14,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class Expedition implements AfterViewInit {
     blog!: ExpeditionPost;
+    content = signal<string[]>([]);
 
     windowWidth = signal<number>(1000);
 
@@ -21,6 +19,9 @@ export class Expedition implements AfterViewInit {
 
     private contentLoaded = signal<boolean>(false);
     public blogLoaded = signal<boolean>(false);
+
+    @ViewChild('blogContent') blogContent!: ElementRef<HTMLParagraphElement>;
+    @ViewChild('showMoreButton') showMoreButton!: ElementRef<HTMLParagraphElement>;
 
     constructor(
         private blogsService: FutureExpeditionsService,
@@ -30,6 +31,18 @@ export class Expedition implements AfterViewInit {
         effect(() => {
             const blogs = this.blogsService.blogs();
             if (blogs.length > 0) this.getBlog();
+        });
+        effect(() => {
+            const blogLoaded = this.blogLoaded();
+            if (blogLoaded) {
+                const blog_content = this.blog.content;
+                let new_content = [];
+                for (const item of blog_content) {
+                    const arr = item.text.split('<br>');
+                    new_content.push(...arr);
+                }
+                this.content.set(new_content);
+            }
         });
     }
 
@@ -51,5 +64,10 @@ export class Expedition implements AfterViewInit {
 
     isLoaded() {
         return this.blogLoaded() && this.contentLoaded();
+    }
+
+    showMore() {
+        this.showMoreButton.nativeElement.style.display = 'none';
+        this.blogContent.nativeElement.style.webkitLineClamp = 'unset';
     }
 }

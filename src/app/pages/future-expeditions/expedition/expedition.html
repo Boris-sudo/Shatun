@@ -30,11 +30,13 @@
                 </table>
             </div>
 
-            <div class="blog-content">
-                @for (content of blog.content; track blog) {
-                    <p [innerHTML]="content.text"></p>
+            <p class="blog-content" #blogContent>
+                @for (content of content(); track content) {
+                    <span>{{ content }}</span>
                 }
-            </div>
+            </p>
+
+            <p class="add" (click)="showMore()" #showMoreButton>Читать дальше</p>
         </div>
 
         <div class="images">
