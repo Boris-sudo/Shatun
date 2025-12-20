@@ -76,23 +76,22 @@
                         }
                     </select>
                 </div>
-                <div>
-
-                </div>
             </div>
 
             <div class="content">
                 <h1>Последние походы</h1>
                 @for (blog of blogs() | blogsFilter:blogFilter.year:blogFilter.name:blogFilter.tags; track blogs()) {
-                    <div class="blog-card">
+                    <div (click)="redirectToId(blog.id)" class="blog-card">
                         <div class="image">
                             <img [src]="blog.preview" alt="blog card">
                         </div>
                         <div class="text">
                             <div>
                                 <p class="title">{{ blog.title }}</p>
+                                <p class="data">{{ blog.date }}</p>
                                 <p class="small-content">{{ blog.small_content }}</p>
                             </div>
+                            <a (click)="redirectToId(blog.id)" class="learn-more">Читать ещё</a>
                             <button (click)="redirectToId(blog.id)" class="control-button border">
                                 <p>Читать дальше</p>
                                 <span>

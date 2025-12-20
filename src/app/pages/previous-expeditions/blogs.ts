@@ -8,13 +8,13 @@ import {
     signal,
     ViewChildren
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { BlogFilterModel } from '../../models/blog-filter.model';
+import { ExpeditionPost } from '../../models/expedition-post.model';
+import { BlogsFilterPipe } from '../../pipes/blogs-filter-pipe';
 import { AnimationsService } from '../../services/animations';
 import { PreviousExpeditionsService } from '../../services/previous-expeditions';
-import { BlogFilterModel } from '../../models/blog-filter.model';
-import { FormsModule } from '@angular/forms';
-import { BlogsFilterPipe } from '../../pipes/blogs-filter-pipe';
-import { ExpeditionPost } from '../../models/expedition-post.model';
 
 @Component({
     selector: 'app-blogs',
