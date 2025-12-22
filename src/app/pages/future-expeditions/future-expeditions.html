@@ -1,9 +1,9 @@
 <div class="container">
 
     <div class="banner">
-        <p class="banner-header"><span>Прошлые</span> походы</p>
+        <p class="page-header">Самые близкие события</p>
 
-        <div class="content">
+        <div class="banner-content">
             <div class="flex flex-col gap-20">
                 <div (click)="redirectToId(1)" class="card">
                     <img [src]="blogs()[0].preview" alt="banner image">
@@ -35,12 +35,12 @@
             </div>
 
             <div class="flex flex-col gap-20 second-column">
-                <div (click)="redirectTo('futures')" class="card height-200"
+                <div (click)="redirectTo('blogs')" class="card height-200"
                      style="background: var(--background-accent-3);">
                     <button>Смотреть</button>
                     <div class="card-content">
-                        <h1>Смотрите также будущие походы</h1>
-                        <p>С этой высоты мир кажется бескрайним и по-настоящему вашим.</p>
+                        <h1>Смотрите также наши прошлые походы</h1>
+                        <p>Вы можете узнать больше о нашей группе, если прочитаете о наших прошлых путешествиях.</p>
                     </div>
                 </div>
                 <div (click)="redirectToId(1)" class="card" style="background: var(--text-secondary);">
@@ -56,41 +56,87 @@
     <div class="main-content">
 
         <div class="blogs-content">
-            <div class="content">
-                <h1>Последние походы</h1>
-                @for (blog of blogs(); track blogs()) {
-                    <div (click)="redirectToId(blog.id)" class="blog-card">
-                        <div class="image">
-                            <img [src]="blog.preview" alt="blog card">
+            <h1 class="title">Дальше в планах</h1>
+            @for (blog of blogs(); track blogs()) {
+                <!--<div (click)="redirectToId(blog.id)" class="blog-card">
+                    <div class="image">
+                        <img [src]="blog.preview" alt="blog card">
+                    </div>
+                    <div class="text">
+                        <div>
+                            <p class="title">{{ blog.title }}</p>
+                            <p class="data">{{ blog.date }}</p>
+                            <p class="small-content">{{ blog.small_content }}</p>
                         </div>
-                        <div class="text">
-                            <div>
-                                <p class="title">{{ blog.title }}</p>
-                                <p class="data">{{ blog.date }}</p>
-                                <p class="small-content">{{ blog.small_content }}</p>
-                            </div>
-                            <a (click)="redirectToId(blog.id)" class="learn-more">Читать ещё</a>
-                            <button (click)="redirectToId(blog.id)" class="control-button border">
-                                <p>Читать дальше</p>
-                                <span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="12"
-                     fill="none" viewBox="0 0 24 12"><path fill="currentColor"
-                                                           d="M0 5.113h20.644L17.577 2.04 18.804.804 24 6l-5.196 5.196-1.227-1.235 3.067-3.074H0z"></path></svg>
-                <span></span>
-            </span>
-                            </button>
-                        </div>
-                        <div class="date">
-                            <p class="price">{{ blog.date }}</p>
-                            <div class="info-list">
-                                <p>Сложность: <span>{{ blog.difficulty }} / 10</span></p>
-                                <p>Километраж: <span>{{ blog.distance }} км</span></p>
-                                <p>Длительность: <span>{{ blog.days }} дней</span></p>
-                            </div>
+                        <a (click)="redirectToId(blog.id)" class="learn-more">Читать ещё</a>
+                        <button (click)="redirectToId(blog.id)" class="control-button border">
+                            <p>Читать дальше</p>
+                            <span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="12"
+                 fill="none" viewBox="0 0 24 12"><path fill="currentColor"
+                                                       d="M0 5.113h20.644L17.577 2.04 18.804.804 24 6l-5.196 5.196-1.227-1.235 3.067-3.074H0z"></path></svg>
+            <span></span>
+        </span>
+                        </button>
+                    </div>
+                    <div class="date">
+                        <p class="price">{{ blog.date }}</p>
+                        <div class="info-list">
+                            <p>Сложность: <span>{{ blog.difficulty }} / 10</span></p>
+                            <p>Километраж: <span>{{ blog.distance }} км</span></p>
+                            <p>Длительность: <span>{{ blog.days }} дней</span></p>
                         </div>
                     </div>
-                }
-            </div>
+                </div>-->
+                <div class="blog-card">
+                    <div class="card-content">
+                        <div>
+                            <p class="card-name">{{ blog.title }}</p>
+                            <p class="card-description">{{ blog.small_content }}</p>
+
+                            <div class="info">
+                                <div class="line">
+                                    <p>Дистанция:</p>
+                                    <p>{{ blog.distance }} км</p>
+                                </div>
+                                <div class="line">
+                                    <p>Длительность:</p>
+                                    <p>{{ blog.days }} дней</p>
+                                </div>
+                                <div class="line">
+                                    <p>Сложность:</p>
+                                    <p>{{ blog.difficulty }} / 10</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="buttons">
+                            <button (click)="redirectToId(blog.id)" class="control-button reversed border">
+                                <p>Читать дальше</p>
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="12"
+                                         fill="none" viewBox="0 0 24 12"><path fill="currentColor"
+                                                                               d="M0 5.113h20.644L17.577 2.04 18.804.804 24 6l-5.196 5.196-1.227-1.235 3.067-3.074H0z"></path></svg>
+                                    <span></span>
+                                </span>
+                            </button>
+                            <a href="https://t.me/BoryaNikitin">
+                                <button class="control-button border">
+                                    <p>Связяться</p>
+                                    <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="12"
+                                         fill="none" viewBox="0 0 24 12"><path fill="currentColor"
+                                                                               d="M0 5.113h20.644L17.577 2.04 18.804.804 24 6l-5.196 5.196-1.227-1.235 3.067-3.074H0z"></path></svg>
+                                    <span></span>
+                                </span>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-preview">
+                        <img [src]="blog.preview" alt="картинка их похода">
+                    </div>
+                </div>
+            }
         </div>
 
     </div>
