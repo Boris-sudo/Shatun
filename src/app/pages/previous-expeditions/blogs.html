@@ -1,120 +1,71 @@
-<div class="container">
+<div class="page-container">
 
     <div class="banner">
-        <p class="banner-header"><span>Прошлые</span> походы</p>
-
-        <div class="content">
-            <div class="flex flex-col gap-20">
-                <div (click)="redirectToId(1)" class="card">
-                    <img [src]="blogs()[0].preview" alt="banner image">
-                    <div class="shadow"></div>
-                    <div class="card-content">
-                        <h1>{{ blogs()[0].title }}</h1>
-                        <p>{{ blogs()[0].small_content }}</p>
-                    </div>
-                </div>
-
-                <div class="flex flex-row gap-20">
-                    <div (click)="redirectToId(1)" class="card height-200">
-                        <img [src]="blogs()[1].preview" alt="banner">
-                        <div class="shadow"></div>
-                        <div class="card-content">
-                            <h1>{{ blogs()[1].title }}</h1>
-                            <p>{{ blogs()[1].small_content }}</p>
-                        </div>
-                    </div>
-                    <div (click)="redirectToId(1)" class="card">
-                        <img [src]="blogs()[2].preview" alt="banner">
-                        <div class="shadow"></div>
-                        <div class="card-content">
-                            <h1>{{ blogs()[2].title }}</h1>
-                            <p>{{ blogs()[2].small_content }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex flex-col gap-20 second-column">
-                <div (click)="redirectTo('futures')" class="card height-200"
-                     style="background: var(--background-accent-3);">
-                    <button>Смотреть</button>
-                    <div class="card-content">
-                        <h1>Смотрите также будущие походы</h1>
-                        <p>С этой высоты мир кажется бескрайним и по-настоящему вашим.</p>
-                    </div>
-                </div>
-                <div (click)="redirectToId(1)" class="card" style="background: var(--text-secondary);">
-                    <div class="card-content">
-                        <h1>{{ blogs()[3].title }}</h1>
-                        <p>{{ blogs()[3].small_content }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <h1 class="page-header">Читайте также о наших предыдущих походах</h1>
     </div>
 
-    <div class="main-content">
+    <div class="filter">
+        <div class="labels">
+            <label class="input-field">
+                <p>Название</p>
+                <input [(ngModel)]="blogFilter.name" type="text" placeholder="Название блога">
+            </label>
 
-        <div class="blogs-content">
-            <div class="inputs-container">
-                <label class="search-label">
-                    <input [(ngModel)]="blogFilter.name" type="text" required="" placeholder="Поиск">
-                    <div>
-                        <svg viewBox="0 0 24 24" aria-hidden="true">
-                            <g>
-                                <path stroke-width="2" stroke="black"
-                                      d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path>
-                            </g>
-                        </svg>
-                    </div>
-                </label>
-                <div class="year-filter">
-                    <select [(ngModel)]="blogFilter.year" name="year">
-                        <option value="all">Все</option>
-                        @for (year of years; track years) {
-                            <option [value]="year">{{ year }}</option>
+            <label class="input-field">
+                <p>Год</p>
+                <select [(ngModel)]="blogFilter.year">
+                    <option value="all">Все</option>
+                    @for (year of years; track years) {
+                        <option [value]="year">{{ year }}</option>
+                    }
+                </select>
+            </label>
+
+            <label class="input-field interval-select">
+                <p>Сложность</p>
+                <div>
+                    <span>от</span>
+                    <select [(ngModel)]="blogFilter.min_difficulty">
+                        @for (difficulty of difficulties; track difficulties) {
+                            <option [hidden]="difficulty > Number(blogFilter.max_difficulty)" [value]="difficulty">{{ difficulty }}</option>
+                        }
+                    </select>
+                    <span>-</span>
+                    <span>до</span>
+                    <select [(ngModel)]="blogFilter.max_difficulty">
+                        @for (difficulty of difficulties; track difficulties) {
+                            <option [hidden]="difficulty < Number(blogFilter.min_difficulty)" [value]="difficulty">{{ difficulty }}</option>
                         }
                     </select>
                 </div>
-            </div>
-
-            <div class="content">
-                <h1>Последние походы</h1>
-                @for (blog of blogs() | blogsFilter:blogFilter.year:blogFilter.name:blogFilter.tags; track blogs()) {
-                    <div (click)="redirectToId(blog.id)" class="blog-card">
-                        <div class="image">
-                            <img [src]="blog.preview" alt="blog card">
-                        </div>
-                        <div class="text">
-                            <div>
-                                <p class="title">{{ blog.title }}</p>
-                                <p class="data">{{ blog.date }}</p>
-                                <p class="small-content">{{ blog.small_content }}</p>
-                            </div>
-                            <a (click)="redirectToId(blog.id)" class="learn-more">Читать ещё</a>
-                            <button (click)="redirectToId(blog.id)" class="control-button border">
-                                <p>Читать дальше</p>
-                                <span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="12"
-                     fill="none" viewBox="0 0 24 12"><path fill="currentColor"
-                                                           d="M0 5.113h20.644L17.577 2.04 18.804.804 24 6l-5.196 5.196-1.227-1.235 3.067-3.074H0z"></path></svg>
-                <span></span>
-            </span>
-                            </button>
-                        </div>
-                        <div class="date">
-                            <p class="price">{{ blog.date }}</p>
-                            <div class="info-list">
-                                <p>Сложность: <span>{{ blog.difficulty }} / 10</span></p>
-                                <p>Километраж: <span>{{ blog.distance }} км</span></p>
-                                <p>Длительность: <span>{{ blog.days }} дней</span></p>
-                            </div>
-                        </div>
-                    </div>
-                }
-            </div>
+            </label>
         </div>
 
+        <div class="work-buttons">
+            <button class="reset" (click)="resetFilters()" [disabled]="isFilterEmpty()">Сбросить</button>
+        </div>
+    </div>
+
+    <div class="content">
+        @for (
+            blog of blogs() | blogsFilter:blogFilter.year:blogFilter.name:blogFilter.min_difficulty:blogFilter.max_difficulty; track blogs()) {
+            <div (click)="redirectToId(blog.id)" class="card">
+                <div class="preview">
+                    <img [src]="blog.preview" alt="blog preview">
+                </div>
+                <div class="card-content">
+                    <p class="name">{{ blog.title }}</p>
+                    <p class="text">{{ blog.small_content }}</p>
+
+                    <div class="info">
+                        <p class="date">{{ blog.date }}</p>
+                        <button>Читать ещё</button>
+                    </div>
+                </div>
+            </div>
+        } @empty {
+            <p class="empty-list">По вашему фильтру ничего не нашлось :(</p>
+        }
     </div>
 
 </div>

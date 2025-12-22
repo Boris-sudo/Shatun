@@ -32,16 +32,21 @@ export class Blogs implements AfterViewInit, OnDestroy {
     blogFilter: BlogFilterModel = {
         name: '',
         year: 'all',
-        tags: []
+        tags: [],
+        min_difficulty: '1',
+        max_difficulty: '10',
     };
 
     years: number[] = [];
+    difficulties: number[] = [];
 
     constructor(
         private router: Router,
         private blogsService: PreviousExpeditionsService,
         private animationsService: AnimationsService
     ) {
+        for (let i = 1; i <= 10; i++) this.difficulties.push(i);
+
         effect(() => {
             this.blogs.set(this.blogsService.blogs());
         });
@@ -75,8 +80,31 @@ export class Blogs implements AfterViewInit, OnDestroy {
         this.redirectTo(`blog/${ id }`);
     }
 
-    ConvertDate(date: string) {
-        return date.split('.').join(' ');
+    isFilterEmpty() {
+        return this.blogFilter.max_difficulty === '10' &&
+            this.blogFilter.min_difficulty === '1' &&
+            this.blogFilter.name === '' &&
+            this.blogFilter.year === 'all';
     }
+
+    resetFilters() {
+        this.blogFilter = {
+            name: '',
+            year: 'all',
+            tags: [],
+            min_difficulty: '1',
+            max_difficulty: '10',
+        };
+    }
+
+    min(a: any, b: any) {
+        return a < b ? a : b;
+    }
+
+    max(a: any, b: any) {
+        return a < b ? b : a;
+    }
+
+    protected readonly Number = Number;
 }
 

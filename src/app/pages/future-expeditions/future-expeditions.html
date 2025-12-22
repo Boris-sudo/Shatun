@@ -1,205 +1,98 @@
 <div class="container">
-    @if (expeditions().length === 0) {
 
-    } @else {
-        <div class="header">
-            <h1 split-heading [splitText]="'Будущие походы'">Будущие походы</h1>
-            <p>Учитывая ключевые сценарии поведения, существующая теория не оставляет шанса для направлений
-                прогрессивного
-                развития. Прежде всего, внедрение современных методик, а также свежий взгляд на привычные вещи —
-                безусловно
-                открывает новые горизонты для дальнейших направлений развития.</p>
+    <div class="banner">
+        <p class="banner-header"><span>Прошлые</span> походы</p>
+
+        <div class="content">
+            <div class="flex flex-col gap-20">
+                <div (click)="redirectToId(1)" class="card">
+                    <img [src]="blogs()[0].preview" alt="banner image">
+                    <div class="shadow"></div>
+                    <div class="card-content">
+                        <h1>{{ blogs()[0].title }}</h1>
+                        <p>{{ blogs()[0].small_content }}</p>
+                    </div>
+                </div>
+
+                <div class="flex flex-row gap-20">
+                    <div (click)="redirectToId(1)" class="card height-200">
+                        <img [src]="blogs()[1].preview" alt="banner">
+                        <div class="shadow"></div>
+                        <div class="card-content">
+                            <h1>{{ blogs()[1].title }}</h1>
+                            <p>{{ blogs()[1].small_content }}</p>
+                        </div>
+                    </div>
+                    <div (click)="redirectToId(1)" class="card">
+                        <img [src]="blogs()[2].preview" alt="banner">
+                        <div class="shadow"></div>
+                        <div class="card-content">
+                            <h1>{{ blogs()[2].title }}</h1>
+                            <p>{{ blogs()[2].small_content }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-20 second-column">
+                <div (click)="redirectTo('futures')" class="card height-200"
+                     style="background: var(--background-accent-3);">
+                    <button>Смотреть</button>
+                    <div class="card-content">
+                        <h1>Смотрите также будущие походы</h1>
+                        <p>С этой высоты мир кажется бескрайним и по-настоящему вашим.</p>
+                    </div>
+                </div>
+                <div (click)="redirectToId(1)" class="card" style="background: var(--text-secondary);">
+                    <div class="card-content">
+                        <h1>{{ blogs()[3].title }}</h1>
+                        <p>{{ blogs()[3].small_content }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+
+        <div class="blogs-content">
+            <div class="content">
+                <h1>Последние походы</h1>
+                @for (blog of blogs(); track blogs()) {
+                    <div (click)="redirectToId(blog.id)" class="blog-card">
+                        <div class="image">
+                            <img [src]="blog.preview" alt="blog card">
+                        </div>
+                        <div class="text">
+                            <div>
+                                <p class="title">{{ blog.title }}</p>
+                                <p class="data">{{ blog.date }}</p>
+                                <p class="small-content">{{ blog.small_content }}</p>
+                            </div>
+                            <a (click)="redirectToId(blog.id)" class="learn-more">Читать ещё</a>
+                            <button (click)="redirectToId(blog.id)" class="control-button border">
+                                <p>Читать дальше</p>
+                                <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="12"
+                     fill="none" viewBox="0 0 24 12"><path fill="currentColor"
+                                                           d="M0 5.113h20.644L17.577 2.04 18.804.804 24 6l-5.196 5.196-1.227-1.235 3.067-3.074H0z"></path></svg>
+                <span></span>
+            </span>
+                            </button>
+                        </div>
+                        <div class="date">
+                            <p class="price">{{ blog.date }}</p>
+                            <div class="info-list">
+                                <p>Сложность: <span>{{ blog.difficulty }} / 10</span></p>
+                                <p>Километраж: <span>{{ blog.distance }} км</span></p>
+                                <p>Длительность: <span>{{ blog.days }} дней</span></p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
         </div>
 
-        <div class="grid grid1">
-            <div (click)="redirectToBlog(expeditions()[0].id)" class="card separate-card" #visible>
-                <div class="card-slide-minus">
-                    <div class="moveable-image" moveable-image>
-                        <img [src]="expeditions()[0].preview" alt="image">
-                    </div>
-                </div>
-                <div class="content">
-                    <h1>{{ expeditions()[0].title }}</h1>
-                    <p>{{ expeditions()[0].small_content }}</p>
-                    <a>
-                        Читать далее
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="12"
-                             fill="none" viewBox="0 0 24 12">
-                            <path fill="currentColor"
-                                  d="M0 5.113h20.644L17.577 2.04 18.804.804 24 6l-5.196 5.196-1.227-1.235 3.067-3.074H0z"></path>
-                        </svg>
-                    </a>
-                </div>
-            </div>
+    </div>
 
-            @if (expeditions().length >= 3) {
-                <div (click)="redirectToBlog(expeditions()[2].id)" class="card small-square-card slideY" #visible>
-                    <div class="moveable-image" [max-deg]="10" moveable-image>
-                        <img [src]="expeditions()[2].preview" alt="image">
-                        <h1>{{ expeditions()[2].title }}</h1>
-                    </div>
-                </div>
-            } @else {
-                <div (click)="redirectTo('blogs')" class="card small-square-card slideY" #visible>
-                    <div style="background: var(--background-accent-3);" class="moveable-image" [max-deg]="10" moveable-image>
-                        <h1>Смотреть прошлые походы</h1>
-                    </div>
-                </div>
-            }
-
-            @if (expeditions().length >= 2) {
-                <div class="card big-square-card">
-                    <div (click)="redirectToBlog(expeditions()[1].id)" class="big-card slideY" #visible>
-                        <div class="moveable-image" moveable-image>
-                            <img [src]="expeditions()[1].preview" alt="image">
-                        </div>
-                        <div class="content">
-                            <h1>{{ expeditions()[1].title }}</h1>
-                            <p>{{ expeditions()[1].small_content }}</p>
-                        </div>
-                    </div>
-
-                    <ul>
-                        <p class="ul-header">Последние заголовки</p>
-                        @for (content of expeditions()[1].content; track expeditions()) {
-                            <li (click)="redirectToBlog(expeditions()[1].id)" class="article slideX" #visible>
-                                <h1>{{ content.title }}</h1>
-                                <p>{{ expeditions()[1].date }}</p>
-                            </li>
-
-                        }
-                    </ul>
-                </div>
-            }
-
-            @if (expeditions().length >= 4) {
-                <div (click)="redirectToBlog(expeditions()[3].id)" class="card small-square-card slideY" #visible>
-                    <div class="moveable-image" [max-deg]="10" moveable-image>
-                        <img [src]="expeditions()[3].preview" alt="image">
-                        <h1>{{ expeditions()[3].title }}</h1>
-                    </div>
-                </div>
-            } @else {
-                <div (click)="redirectTo('blogs')" class="card small-square-card slideY" #visible>
-                    <div style="background: var(--background-accent-3);" class="moveable-image" [max-deg]="10" moveable-image>
-                        <h1>Смотреть прошлые походы</h1>
-                    </div>
-                </div>
-            }
-        </div>
-
-        @if (expeditions().length >= 5) {
-            <div class="subheader">
-                <h1>Воистину радостный звук</h1>
-                <div class="line"></div>
-            </div>
-
-            <div class="grid grid2"
-                 [style.grid-template-columns]="expeditions().length === 6 ? 'repeat(1, 1fr)' : (expeditions().length === 7 ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)')">
-
-                <div (click)="redirectToBlog(expeditions()[4].id)" style="grid-column: span 3"
-                     class="card separate-card" #visible>
-                    <div class="card-slide-minus">
-                        <div class="moveable-image" moveable-image>
-                            <img [src]="expeditions()[4].preview" alt="image">
-                        </div>
-                    </div>
-                    <div class="content">
-                        <h1>{{ expeditions()[4].title }}</h1>
-                        <p>{{ expeditions()[4].small_content }}</p>
-                        <a>
-                            Читать далее
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="12"
-                                 fill="none" viewBox="0 0 24 12">
-                                <path fill="currentColor"
-                                      d="M0 5.113h20.644L17.577 2.04 18.804.804 24 6l-5.196 5.196-1.227-1.235 3.067-3.074H0z"></path>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-
-                @if (expeditions().length >= 6) {
-                    <div class="card fixed-container" style="grid-column: span 1;">
-                        <div (click)="redirectToBlog(expeditions()[5].id)" class="card separate-card"
-                             style="--trans-delay: 0.0s;"
-                             #visible>
-                            <div class="card-slide-minus">
-                                <div class="moveable-image" moveable-image>
-                                    <img src="images/mvp/img1.png" alt="image">
-                                </div>
-                            </div>
-                            <div class="content flex-start">
-                                <h1>Водный поход 2025</h1>
-                                <p>Задача организации, в особенности же экономическая повестка сегодняшнего дня не даёт
-                                    нам
-                                    иного
-                                    выбора, кроме определения анализа существующих паттернов поведения!</p>
-                                <a>
-                                    Читать далее
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="12"
-                                         fill="none" viewBox="0 0 24 12">
-                                        <path fill="currentColor"
-                                              d="M0 5.113h20.644L17.577 2.04 18.804.804 24 6l-5.196 5.196-1.227-1.235 3.067-3.074H0z"></path>
-                                    </svg>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                }
-
-                @if (expeditions().length >= 7) {
-                    <div class="card fixed-container" style="grid-column: span 1;">
-                        <div (click)="redirectToBlog(expeditions()[6].id)" class="card separate-card"
-                             style="--trans-delay: 0.1s;"
-                             #visible>
-                            <div class="card-slide-minus">
-                                <div class="moveable-image" moveable-image>
-                                    <img [src]="expeditions()[6].preview" alt="image">
-                                </div>
-                            </div>
-                            <div class="content flex-start">
-                                <h1>{{ expeditions()[6].title }}</h1>
-                                <p>{{ expeditions()[6].small_content }}</p>
-                                <a>
-                                    Читать далее
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="12"
-                                         fill="none" viewBox="0 0 24 12">
-                                        <path fill="currentColor"
-                                              d="M0 5.113h20.644L17.577 2.04 18.804.804 24 6l-5.196 5.196-1.227-1.235 3.067-3.074H0z"></path>
-                                    </svg>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                }
-
-                @if (expeditions().length >= 8) {
-                    <div class="card fixed-container" style="grid-column: span 1;">
-                        <div (click)="redirectToBlog(expeditions()[7].id)" class="card separate-card"
-                             style="--trans-delay: 0.2s;"
-                             #visible>
-                            <div class="card-slide-minus">
-                                <div class="moveable-image" moveable-image>
-                                    <img [src]="expeditions()[7].preview" alt="image">
-                                </div>
-                            </div>
-                            <div class="content flex-start">
-                                <h1>{{ expeditions()[7].title }}</h1>
-                                <p>{{ expeditions()[7].small_content }}</p>
-                                <a>
-                                    Читать далее
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="12"
-                                         fill="none" viewBox="0 0 24 12">
-                                        <path fill="currentColor"
-                                              d="M0 5.113h20.644L17.577 2.04 18.804.804 24 6l-5.196 5.196-1.227-1.235 3.067-3.074H0z"></path>
-                                    </svg>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                }
-
-            </div>
-        }
-    }
 </div>

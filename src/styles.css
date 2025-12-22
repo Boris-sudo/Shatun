@@ -1,4 +1,4 @@
-@import 'stylesheets/variables.css';
+@import "stylesheets/variables.css";
 @import "stylesheets/normalize.css";
 @import "stylesheets/index.css";
 @import "stylesheets/fonts.css";
@@ -6,6 +6,7 @@
 @import "stylesheets/elements/animations.css";
 @import "stylesheets/elements/control-button.css";
 @import "stylesheets/elements/classes.css";
+@import "stylesheets/elements/inputs.css";
 
 .container {
     all:             unset;

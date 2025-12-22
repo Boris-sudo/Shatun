@@ -8,18 +8,16 @@ import {
     signal,
     ViewChildren
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { FutureExpeditionsService } from '../../services/future-expeditions';
-import { AnimationsService } from '../../services/animations';
-import { SplitHeading } from '../../directives/split-heading';
-import { MoveableImage } from '../../directives/moveable-image';
 import { ExpeditionPost } from '../../models/expedition-post.model';
+import { AnimationsService } from '../../services/animations';
+import { FutureExpeditionsService } from '../../services/future-expeditions';
 
 @Component({
     selector: 'app-expeditions',
     imports: [
-        SplitHeading,
-        MoveableImage
+        FormsModule
     ],
     templateUrl: './future-expeditions.html',
     styleUrl: './future-expeditions.css'
@@ -27,32 +25,21 @@ import { ExpeditionPost } from '../../models/expedition-post.model';
 export class FutureExpeditions implements AfterViewInit, OnDestroy {
     @ViewChildren('visible') visibleElements!: QueryList<ElementRef>;
 
-    expeditions = signal<ExpeditionPost[]>([]);
+    blogs = signal<ExpeditionPost[]>([]);
 
-    contentLoaded = signal(false);
 
     constructor(
         private router: Router,
-        private expeditionsService: FutureExpeditionsService,
+        private blogsService: FutureExpeditionsService,
         private animationsService: AnimationsService
     ) {
         effect(() => {
-            this.expeditions.set(this.expeditionsService.blogs());
-        });
-        effect(() => {
-            const expeditionsSize = this.expeditions().length;
-            const contentLoaded = this.contentLoaded();
-
-            if (expeditionsSize > 0 && contentLoaded) {
-                setTimeout(() => {
-                    this.visibleElements.forEach(element => this.animationsService.addObservableElement(element.nativeElement));
-                }, 10);
-            }
+            this.blogs.set(this.blogsService.blogs());
         });
     }
 
     ngAfterViewInit() {
-        this.contentLoaded.set(true);
+        this.visibleElements.forEach(element => this.animationsService.addObservableElement(element.nativeElement));
     }
 
     ngOnDestroy() {
@@ -66,7 +53,11 @@ export class FutureExpeditions implements AfterViewInit, OnDestroy {
         this.router.navigate([url]);
     }
 
-    redirectToBlog(id: number) {
-        this.redirectTo(`expedition/${ id }`)
+    redirectToId(id: number) {
+        this.redirectTo(`expedition/${ id }`);
+    }
+
+    ConvertDate(date: string) {
+        return date.split('.').join(' ');
     }
 }
