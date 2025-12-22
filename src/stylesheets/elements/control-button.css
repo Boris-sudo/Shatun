@@ -13,12 +13,20 @@
     overflow:      hidden;
     justify-content: space-between;
 
+    @media screen and (max-width: 500px) {
+        padding: 8px 20px;
+    }
+
     p {
         font-size:           16px;
         font-weight:         700;
         margin-right:        5px;
         transition-duration: .6s;
         letter-spacing:      1px;
+
+        @media screen and (max-width: 500px) {
+            font-size: 14px;
+        }
     }
 
     & > span {
@@ -26,6 +34,10 @@
         align-items:     center;
         justify-content: center;
         padding-right:   8px;
+
+        @media screen and (max-width: 500px) {
+            padding-right: 3px;
+        }
 
         svg {
             transition-duration: .6s;
@@ -42,6 +54,10 @@
             border-radius:       var(--br-100);
             z-index:             -1;
             transition-duration: .6s;
+
+            @media screen and (max-width: 500px) {
+                right: 13px;
+            }
         }
     }
 

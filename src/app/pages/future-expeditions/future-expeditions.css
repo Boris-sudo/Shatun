@@ -8,7 +8,7 @@
     flex-direction: column;
     width:          100%;
     height:         fit-content;
-    padding:   var(--header-big-height) var(--px) 100px;
+    padding:   var(--header-big-height) var(--px) 100px var(--px);
 
     @media screen and (max-width: 1100px) {
         --px: 16px;
@@ -227,6 +227,10 @@
     gap:            20px;
     border-radius:  var(--br-16);
     padding:        16px;
+
+    @media screen and (max-width: 1100px) {
+        padding: 16px 0;
+    }
 
     @media screen and (max-width: 750px) {
         padding: 0;
@@ -496,6 +500,11 @@
         gap:            20px;
         background:     rgba(from var(--background-neutral) r g b / 0.3);
 
+        @media screen and (max-width: 600px) {
+            flex-direction: column-reverse;
+            gap:            0;
+        }
+
         .card-content {
             width:           100%;
             padding:         24px 16px;
@@ -508,6 +517,21 @@
                 font-size:   24px;
                 font-weight: 600;
                 font-family: var(--ff-lato), sans-serif;
+
+                @media screen and (max-width: 700px) {
+                    font-size: 20px;
+                }
+            }
+
+            .card-date {
+                font-size:   18px;
+                font-weight: 600;
+                color:       var(--text-secondary);
+                font-family: var(--ff-inter), sans-serif;
+
+                @media screen and (max-width: 700px) {
+                    font-size: 16px;
+                }
             }
 
             .card-description {
@@ -517,6 +541,10 @@
                 line-height:    130%;
                 letter-spacing: .3px;
                 margin:         16px 0;
+
+                @media screen and (max-width: 700px) {
+                    font-size: 14px;
+                }
             }
 
             .info {
@@ -536,6 +564,10 @@
                         font-size:   18px;
                         font-weight: 600;
                         font-family: var(--ff-inter), sans-serif;
+
+                        @media screen and (max-width: 700px) {
+                            font-size: 14px;
+                        }
                     }
 
                     p:nth-child(1) {
@@ -554,11 +586,19 @@
                 flex-direction: row;
                 align-items:    center;
                 gap:            20px;
+
+                @media screen and (max-width: 700px) {
+                    a {
+                        display: none;
+                    }
+                }
             }
         }
 
         .card-preview {
-            width:     calc(100% * 2 / 3);
+            display: flex;
+            width:   100%;
+            height:  100%;
             max-width: 500px;
 
             img {
@@ -566,6 +606,14 @@
                 aspect-ratio:    1/1;
                 object-fit:      cover;
                 object-position: center;
+            }
+
+            @media screen and (max-width: 600px) {
+                max-width: 100vw;
+
+                img {
+                    aspect-ratio: 3/2;
+                }
             }
         }
     }
