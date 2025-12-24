@@ -1,4 +1,4 @@
-@import '../../../../stylesheets/elements/grid-cards.css';
+@import "../../../../stylesheets/elements/grid-cards.css";
 
 .container {
     display:        flex;
@@ -74,15 +74,18 @@
         }
 
         .month {
-            display:        flex;
-            flex-direction: column;
-            gap:            5px;
-            margin-bottom:  10px;
+            width:           100%;
+            align-items:     center;
+            justify-content: center;
+            display:         flex;
+            flex-direction:  column;
+            gap:             5px;
+            margin-bottom:   10px;
 
             span:nth-child(1) {
-                font-family:    var(--ff-lato), sans-serif;
+                font-family: var(--ff-inter), sans-serif;
                 font-size:      17px;
-                font-weight:    600;
+                font-weight: 700;
                 text-transform: uppercase;
             }
 

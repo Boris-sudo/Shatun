@@ -1,20 +1,22 @@
+import { SlicePipe } from '@angular/common';
 import {
     AfterViewInit,
-    Component, effect,
+    Component,
+    effect,
     ElementRef,
     OnDestroy,
     QueryList,
     Renderer2,
-    signal, ViewChild,
+    signal,
+    ViewChild,
     ViewChildren
 } from '@angular/core';
-import { SplitHeading } from '../../../directives/split-heading';
-import { MoveableImage } from '../../../directives/moveable-image';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MoveableImage } from '../../../directives/moveable-image';
+import { SplitHeading } from '../../../directives/split-heading';
+import { ExpeditionPost } from '../../../models/expedition-post.model';
 import { AnimationsService } from '../../../services/animations';
 import { PreviousExpeditionsService } from '../../../services/previous-expeditions';
-import { ExpeditionPost } from '../../../models/expedition-post.model';
-import { SlicePipe } from '@angular/common';
 
 @Component({
     selector: 'app-blog',
@@ -131,6 +133,16 @@ export class Blog implements AfterViewInit, OnDestroy {
 
             await sleep(10);
         }
+    }
+
+    getMonth() {
+        let date = Number(this.blog.date.split('.')[1]);
+        const months = ['янв', 'фев', 'март', 'апр', 'май', 'июнь', 'июль', 'авг', 'сент', 'окт', 'ноя', 'дек'];
+        return months[date - 1];
+    }
+
+    getDate() {
+        return this.blog.date.split('.')[0];
     }
 }
 

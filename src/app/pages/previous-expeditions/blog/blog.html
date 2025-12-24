@@ -8,8 +8,8 @@
         <div class="blog-container">
             <div class="author">
                 <p class="month">
-                    <span>OCT</span>
-                    <span>02</span>
+                    <span>{{ getMonth() }}</span>
+                    <span>{{ getDate() }}</span>
                 </p>
                 <p class="separator">•••••••••••••••••</p>
                 <p class="name">
@@ -74,17 +74,13 @@
                     </a>
                 </div>
                 <div class="blogs">
-                    <div class="blog">
+                    <div (click)="redirectTo('futures')" class="blog">
                         <img src="images/mvp/img3.png" alt="images">
-                        <p>Gay sex</p>
+                        <p>Следующие</p>
                     </div>
-                    <div class="blog">
+                    <div (click)="redirectTo('blogs')" class="blog">
                         <img src="images/mvp/img4.png" alt="images">
-                        <p>Gay sex</p>
-                    </div>
-                    <div class="blog">
-                        <img src="images/mvp/img2.png" alt="images">
-                        <p>Gay sex</p>
+                        <p>Прошлые</p>
                     </div>
                 </div>
             </div>

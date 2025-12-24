@@ -19,15 +19,18 @@
 }
 
 .container {
+    --container-width: min(100vw, 1400px);
     --container-gap:     64px;
     --container-padding: 64px;
-    --images-width:      min(400px, calc((100vw - var(--container-gap) - 2 * var(--container-padding)) / 2));
-    --content-width:     calc(100vw - var(--container-gap) - var(--images-width) - 2 * var(--container-padding));
+    --images-width:    min(400px, calc((var(--container-width) - var(--container-gap) - 2 * var(--container-padding)) / 2));
+    --content-width:   calc(var(--container-width) - var(--container-gap) - var(--images-width) - 2 * var(--container-padding));
 
     position:            relative;
     overflow-x:          hidden !important;
     width:               100vw;
     min-height:          100vh;
+    max-width:         1400px;
+    margin:            0 auto;
     display:             flex;
     flex-direction:      row;
     gap:                 var(--container-gap);
@@ -83,10 +86,10 @@
         font-weight:        500;
         line-height:        180%;
 
-        display:            -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 10;
-        overflow:           hidden;
+        /*display:            -webkit-box;*/
+        /*-webkit-box-orient: vertical;*/
+        /*-webkit-line-clamp: 10;*/
+        /*overflow:           hidden;*/
 
         p, span {
             display: block;
