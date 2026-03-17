@@ -20,6 +20,7 @@ import { FutureExpeditionsService } from '../../services/future-expeditions';
         FormsModule
     ],
     templateUrl: './future-expeditions.html',
+    standalone: true,
     styleUrl: './future-expeditions.css'
 })
 export class FutureExpeditions implements AfterViewInit, OnDestroy {

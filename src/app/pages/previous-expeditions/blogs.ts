@@ -18,6 +18,7 @@ import { PreviousExpeditionsService } from '../../services/previous-expeditions'
 
 @Component({
     selector: 'app-blogs',
+    standalone: true,
     imports: [
         FormsModule,
         BlogsFilterPipe,

@@ -12,6 +12,7 @@ import {Footer} from './core/footer';
             min-height: 100vh;
         }
     `,
+    standalone: true,
     template: `
         <div class="container">
             <HeaderComp/>

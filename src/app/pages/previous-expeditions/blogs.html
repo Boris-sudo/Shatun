@@ -27,14 +27,18 @@
                     <span>от</span>
                     <select [(ngModel)]="blogFilter.min_difficulty">
                         @for (difficulty of difficulties; track difficulties) {
-                            <option [hidden]="difficulty > Number(blogFilter.max_difficulty)" [value]="difficulty">{{ difficulty }}</option>
+                            <option [hidden]="difficulty > Number(blogFilter.max_difficulty)"
+                                    [value]="difficulty">{{ difficulty }}
+                            </option>
                         }
                     </select>
                     <span>-</span>
                     <span>до</span>
                     <select [(ngModel)]="blogFilter.max_difficulty">
                         @for (difficulty of difficulties; track difficulties) {
-                            <option [hidden]="difficulty < Number(blogFilter.min_difficulty)" [value]="difficulty">{{ difficulty }}</option>
+                            <option [hidden]="difficulty < Number(blogFilter.min_difficulty)"
+                                    [value]="difficulty">{{ difficulty }}
+                            </option>
                         }
                     </select>
                 </div>
@@ -47,8 +51,7 @@
     </div>
 
     <div class="content">
-        @for (
-            blog of blogs() | blogsFilter:blogFilter.year:blogFilter.name:blogFilter.min_difficulty:blogFilter.max_difficulty; track blogs()) {
+        @for (blog of blogs() | blogsFilter:blogFilter.year:blogFilter.name:blogFilter.min_difficulty:blogFilter.max_difficulty; track blogs()) {
             <div (click)="redirectToId(blog.id)" class="card">
                 <div class="preview">
                     <img [src]="blog.preview" alt="blog preview">

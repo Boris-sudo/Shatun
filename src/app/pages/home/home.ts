@@ -20,6 +20,7 @@ import { ExpeditionPost } from '../../models/expedition-post.model';
         SlicePipe
     ],
     templateUrl: './home.html',
+    standalone: true,
     styleUrl: './home.css'
 })
 export class Home implements AfterViewInit {

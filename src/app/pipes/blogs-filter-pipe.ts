@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { ExpeditionPost } from '../models/expedition-post.model';
 
 @Pipe({
-    name: 'blogsFilter'
+    name: 'blogsFilter',
+    standalone: true
 })
 export class BlogsFilterPipe implements PipeTransform {
 

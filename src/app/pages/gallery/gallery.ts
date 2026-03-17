@@ -4,12 +4,13 @@ import {AnimationsService} from '../../services/animations';
 import {ImagesService} from '../../services/images';
 
 @Component({
-  selector: 'app-gallery',
+    selector: 'app-gallery',
     imports: [
         SplitHeading
     ],
-  templateUrl: './gallery.html',
-  styleUrl: './gallery.css'
+    templateUrl: './gallery.html',
+    standalone: true,
+    styleUrl: './gallery.css'
 })
 export class Gallery implements AfterViewInit, OnDestroy {
     @ViewChild('gallery') galleryContainer!: ElementRef<HTMLDivElement>;

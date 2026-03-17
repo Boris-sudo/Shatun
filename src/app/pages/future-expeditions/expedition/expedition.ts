@@ -7,6 +7,7 @@ import { FutureExpeditionsService } from '../../../services/future-expeditions';
     selector: 'app-expedition',
     imports: [],
     templateUrl: './expedition.html',
+    standalone: true,
     styleUrl: './expedition.css'
 })
 export class Expedition implements AfterViewInit {

@@ -17,9 +17,17 @@ import { SplitHeading } from '../../../directives/split-heading';
 import { ExpeditionPost } from '../../../models/expedition-post.model';
 import { AnimationsService } from '../../../services/animations';
 import { PreviousExpeditionsService } from '../../../services/previous-expeditions';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+
+interface SafeBlogContent {
+    title: string;
+    content: SafeHtml,
+    images: string[];
+}
 
 @Component({
     selector: 'app-blog',
+    standalone: true,
     imports: [
         SplitHeading,
         MoveableImage,
@@ -37,6 +45,8 @@ export class Blog implements AfterViewInit, OnDestroy {
 
     blogs = signal<ExpeditionPost[]>([]);
 
+    blogContent: Array<SafeBlogContent> = [];
+
     private galleryColumns = 0;
 
     private contentLoaded = signal<boolean>(false);
@@ -47,7 +57,8 @@ export class Blog implements AfterViewInit, OnDestroy {
         private route: ActivatedRoute,
         private router: Router,
         private blogsService: PreviousExpeditionsService,
-        private animationsService: AnimationsService
+        private animationsService: AnimationsService,
+        private sanitizer: DomSanitizer
     ) {
         effect(() => {
             const blogs = this.blogsService.blogs();
@@ -84,6 +95,14 @@ export class Blog implements AfterViewInit, OnDestroy {
         if (blog === undefined)
             this.router.navigate(['futures']);
         this.blog = blog!;
+        if (blog?.content !== undefined)
+            for (const contentElement of blog!.content!) {
+                this.blogContent.push({
+                    title: contentElement.title,
+                    content: this.sanitizer.bypassSecurityTrustHtml(contentElement.text),
+                    images: contentElement.images
+                })
+            }
         this.blogLoaded.set(true);
     }
 
@@ -127,7 +146,8 @@ export class Blog implements AfterViewInit, OnDestroy {
             }
 
             const image = this.renderer.createElement('img');
-            image.src = src;
+            let final_src = `images/${ this.blog.id }/${ src }`
+            image.src = final_src;
             this.animationsService.addObservableElement(image);
             columns.item(index)!.appendChild(image);
 
@@ -143,6 +163,17 @@ export class Blog implements AfterViewInit, OnDestroy {
 
     getDate() {
         return this.blog.date.split('.')[0];
+    }
+
+    getElementTag(element: SafeHtml): string {
+        if (!element) return '';
+
+        const htmlString = element.toString();
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = htmlString;
+        const firstElement = tempDiv.firstElementChild;
+
+        return firstElement?.tagName?.toLowerCase() || '';
     }
 }
 

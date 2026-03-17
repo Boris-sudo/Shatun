@@ -1,0 +1,19 @@
+{
+    "id": 10,
+    "preview": "images/10/img.jpg",
+    "title": "ПВД \"по болотам к волге\"",
+    "images": [
+        "img.jpg",
+        "img1.jpg",
+        "img2.jpg",
+        "img3.jpg"
+    ],
+    "content": [],
+    "days": 1,
+    "difficulty": 3,
+    "distance": 1000,
+    "price": 10000,
+    "equipment": [],
+    "small_content": "",
+    "date": "00.00.2025"
+}

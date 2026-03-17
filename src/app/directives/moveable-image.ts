@@ -1,6 +1,7 @@
 import {AfterViewInit, Directive, ElementRef, Input} from '@angular/core';
 
 @Directive({
+    standalone: true,
     selector: '[moveable-image]'
 })
 export class MoveableImage implements AfterViewInit {

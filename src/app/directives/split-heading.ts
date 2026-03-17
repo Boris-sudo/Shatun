@@ -2,6 +2,7 @@ import {AfterViewInit, Directive, ElementRef, Input, Renderer2} from '@angular/c
 import {AnimationsService} from '../services/animations';
 
 @Directive({
+    standalone: true,
     selector: '[split-heading]'
 })
 export class SplitHeading implements AfterViewInit {

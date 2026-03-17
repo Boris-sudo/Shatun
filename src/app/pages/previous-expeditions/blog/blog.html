@@ -17,14 +17,16 @@
                     <span>Борисов Никита</span>
                 </p>
                 <p class="separator">•••••••••••••••••</p>
-                <p class="quote">И количественный важную формировании организации равным условий. Высшего играет и
-                    выполнять идейные прогрессивного же количественный соответствующий в активности практика
-                    показывает.</p>
+                <p class="quote">{{ blog.small_content }}</p>
                 <p class="separator">•••••••••••••••••</p>
             </div>
             <div class="text-container">
-                @for (blogContent of blog.content; track blog) {
-                    <p [innerHTML]="blogContent.text"></p>
+                @for (blogContent of blogContent; track blog) {
+                    @if (getElementTag(blogContent.content) === 'w') {
+                        <p style="width: 100%;" [innerHTML]="blogContent.content"></p>
+                    } @else {
+                        <p [innerHTML]="blogContent.content"></p>
+                    }
 
                     <figure
                         [style.max-width]="blogContent.images.length === 1 ? '600px' : 'none'"
@@ -34,7 +36,8 @@
                             @for (imageSrc of blogContent.images; track blog) {
                                 <div class="image">
                                     <picture>
-                                        <img [src]="imageSrc" alt="blog image" loading="lazy">
+                                        <img [src]="'images/' + blog.id + '/' + imageSrc" alt="blog image"
+                                             loading="lazy">
                                     </picture>
                                 </div>
                             }
